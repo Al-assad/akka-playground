@@ -1,4 +1,4 @@
-name := "akka-quickstart-scala"
+name := "akka-playground"
 
 version := "1.0"
 
