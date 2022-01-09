@@ -71,7 +71,7 @@ object GreeterBot {
 }
 
 // Greeter-Main Actor
-// It's the guardian behavior of Greeter Action and Greeter-Bot Actor.
+// It's the guardian behavior of Greeter Actor and Greeter-Bot Actor.
 // When the Greeter-Main Actor setups, spawn the Greeter Actor.
 // When receive the message SayHello, spawn the Greeter-Bot Actor, then reply to the message Greet.
 object GreeterMain {
