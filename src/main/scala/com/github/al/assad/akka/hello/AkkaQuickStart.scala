@@ -5,7 +5,7 @@ import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 import com.github.al.assad.akka.hello.GreeterMain.SayHello
 
 /**
- * 官方 quick-start 示例
+ * akka quick-start sample
  * https://developer.lightbend.com/guides/akka-quickstart-scala/index.html
  */
 
