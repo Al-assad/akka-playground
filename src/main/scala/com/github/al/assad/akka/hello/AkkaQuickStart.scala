@@ -4,8 +4,10 @@ import akka.actor.typed.scaladsl.{ActorContext, Behaviors}
 import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 import com.github.al.assad.akka.hello.GreeterMain.SayHello
 
-// https://developer.lightbend.com/guides/akka-quickstart-scala/index.html
-// https://github.com/guobinhit/akka-guide/blob/master/articles/qucikstart-akka-java.md
+/**
+ * 官方 quick-start 示例
+ * https://developer.lightbend.com/guides/akka-quickstart-scala/index.html
+ */
 
 /*
                          ┌───────spawn──────────────────┐
