@@ -1,4 +1,4 @@
-package com.github.al.assad.akka.b_message_interaction
+package com.github.al.assad.akka.b_interaction_pattern
 
 import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 import akka.actor.typed.scaladsl.Behaviors
