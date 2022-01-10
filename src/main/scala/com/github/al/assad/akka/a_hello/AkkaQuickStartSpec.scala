@@ -1,8 +1,8 @@
-package com.github.al.assad.akka.hello
+package com.github.al.assad.akka.a_hello
 
 import akka.actor.testkit.typed.scaladsl.{ScalaTestWithActorTestKit, TestProbe}
 import akka.actor.typed.ActorRef
-import com.github.al.assad.akka.hello.Greeter.{Greet, Greeted}
+import com.github.al.assad.akka.a_hello.Greeter.{Greet, Greeted}
 import org.scalatest.wordspec.AnyWordSpecLike
 
 class AkkaQuickStartSpec extends ScalaTestWithActorTestKit with AnyWordSpecLike {

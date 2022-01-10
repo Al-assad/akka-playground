@@ -1,8 +1,8 @@
-package com.github.al.assad.akka.hello
+package com.github.al.assad.akka.a_hello
 
 import akka.actor.typed.scaladsl.{ActorContext, Behaviors}
 import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
-import com.github.al.assad.akka.hello.GreeterMain.SayHello
+import com.github.al.assad.akka.a_hello.GreeterMain.SayHello
 
 /**
  * akka quick-start sample

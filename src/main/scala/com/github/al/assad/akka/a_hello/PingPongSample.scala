@@ -1,4 +1,4 @@
-package com.github.al.assad.akka.hello
+package com.github.al.assad.akka.a_hello
 
 import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 import akka.actor.typed.scaladsl.Behaviors
