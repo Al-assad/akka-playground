@@ -1,0 +1,43 @@
+# This is the test script using idea-http
+
+### HelloWorld -> hello
+GET http://127.0.0.1:8080/hello
+
+
+### JsonMarshalling -> get item
+GET http://127.0.0.1:8080/item/1
+
+### JsonMarshalling -> get item
+GET http://127.0.0.1:8080/item/5
+
+### JsonMarshalling -> save Order
+POST http://127.0.0.1:8080/order
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "name": "assad",
+      "id": 1
+    },
+    {
+      "name": "vancy",
+      "id": 2
+    }
+  ]
+}
+
+
+### StreamingData -> Get random numbers
+GET http://127.0.0.1:8080/random
+Content-Type: text/plain
+
+
+### LowLevelHttpApi
+GET http://127.0.0.1:8080/
+
+### LowLevelHttpApi
+GET http://127.0.0.1:8080/ping
+
+### LowLevelHttpApi
+GET http://127.0.0.1:8080/aha
