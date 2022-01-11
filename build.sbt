@@ -14,9 +14,6 @@ lazy val akkaHttpVersion = "10.2.7"
 fork := true
 
 libraryDependencies ++= Seq(
-  // logger
-  "ch.qos.logback" % "logback-classic" % "1.2.3",
-
   // akka actor
   "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
   // akka http
@@ -26,5 +23,9 @@ libraryDependencies ++= Seq(
 
   // akka actor test kit
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion,
-  "org.scalatest" %% "scalatest" % "3.2.9"
+  "org.scalatest" %% "scalatest" % "3.2.9",
+
+  // other
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "com.github.nscala-time" %% "nscala-time" % "2.30.0",
 )
