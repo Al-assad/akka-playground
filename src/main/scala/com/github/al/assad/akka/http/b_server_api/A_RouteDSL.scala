@@ -39,9 +39,9 @@ object DslSampleServer {
     // 为一组子路由声明共同的上层 path
     pathPrefix("api") {
       concat(
-        userRoute,
-        fileRoute,
-        queryRoute
+        pathPrefix("user")(userRoute),
+        pathPrefix("file")(fileRoute),
+        pathPrefix("query")(queryRoute)
       )
     }
   )
@@ -62,7 +62,7 @@ object DslSampleServer {
     path("ping")(get & complete("pong"))
 
   // "/api/users" 演示 User 资源的 Rest CURD
-  def userRoute: Route = pathPrefix("user") {
+  def userRoute: Route = {
     pathEnd {
       post {
         entity(as[User]) { user =>
@@ -88,14 +88,14 @@ object DslSampleServer {
   }
 
   // 获取路由多个部分 "/api/file/*"
-  def fileRoute: Route = path("file" / Remaining) { filename =>
+  def fileRoute: Route = path(Remaining) { filename =>
     get {
       complete(s"download: $filename")
     }
   }
 
   // 获取路由参数
-  def queryRoute: Route = pathPrefix("query") {
+  def queryRoute: Route = {
     get {
       pathPrefix("user") {
         pathEnd {
