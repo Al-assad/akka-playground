@@ -1,0 +1,66 @@
+###
+GET http://127.0.0.1:8080/hello
+
+###
+GET http://127.0.0.1:8080/ping
+
+### 
+POST http://127.0.0.1:8080/api/user
+Content-Type: application/json
+
+{
+  "id": 12,
+  "name": "assad"
+}
+
+###
+DELETE http://127.0.0.1:8080/api/user/12
+
+###
+GET http://127.0.0.1:8080/api/user/12
+
+###
+GET http://127.0.0.1:8080/api/user/all
+
+###
+GET http://127.0.0.1:8080/api/file/sgygyusa/114514.png
+
+###
+GET http://127.0.0.1:8080/api/query/user?id=12
+
+###
+GET http://127.0.0.1:8080/api/query/user?name=assad
+
+###
+GET http://127.0.0.1:8080/api/query/user?name=assad&id=12
+
+###
+GET http://127.0.0.1:8080/api/query/user/all?size=2
+
+
+### dyanmic route
+POST http://127.0.0.1:8080/mock
+Content-Type: application/json
+
+{
+  "path": "test",
+  "requests": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    }
+  ],
+  "responses": [
+    {
+      "amount": 1000
+    },
+    {
+      "amount": 2000
+    }
+  ]
+}
+
+
+
