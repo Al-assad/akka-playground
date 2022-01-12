@@ -1,4 +1,4 @@
-package com.github.al.assad.akka.http.e_other
+package com.github.al.assad.akka.http.c_other
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
