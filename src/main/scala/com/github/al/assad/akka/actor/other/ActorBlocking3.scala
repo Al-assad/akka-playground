@@ -28,7 +28,7 @@ object RouterBlockActors {
         Behaviors.receive[Touch] { (ctx, _) =>
           seqCount += 1
           ctx.log.info(s"Bot assign work: seq=${seqCount}")
-          // 向路由派发任务
+          // 向 Worker 路由派发任务
           workerRouter ! Assign(seqCount)
           Behaviors.same
         }
