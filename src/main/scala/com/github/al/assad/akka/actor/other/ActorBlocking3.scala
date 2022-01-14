@@ -51,6 +51,7 @@ object RouterBlockActors {
   def main(args: Array[String]): Unit = {
     val bot = ActorSystem(Bot(), "bot")
     (1 to 10).foreach(_ => bot ! Bot.Touch())
+
   }
 
 }
