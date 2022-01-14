@@ -43,6 +43,7 @@ object AnotherBlockingActors {
       val sleepMs = 2000 + rand.nextInt(2000)
       Thread.sleep(sleepMs)
       ctx.log.info(s"Worker finished: ${msg.seq}, cost ${sleepMs} millis.")
+      // 处理结束后自动销毁
       Behaviors.stopped
     }
   }
