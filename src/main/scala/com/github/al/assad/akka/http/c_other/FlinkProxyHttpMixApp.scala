@@ -12,7 +12,7 @@ import spray.json.DefaultJsonProtocol._
 import spray.json._
 
 //noinspection DuplicatedCode
-object ProxyHttpMixApp extends App {
+object FlinkProxyHttpMixApp extends App {
 
   implicit val system = ActorSystem(Behaviors.empty, "Proxy")
   implicit val ec = system.executionContext
