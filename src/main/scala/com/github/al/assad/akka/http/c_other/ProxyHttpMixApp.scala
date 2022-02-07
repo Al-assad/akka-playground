@@ -28,27 +28,26 @@ object ProxyHttpMixApp extends App {
 
   // dynamic proxy route
   val proxy: Route = ctx => {
-    val routes: List[Route] = flinkRests.map {
-      case (host, port) => pathPrefix(s"$host:$port") {
-        path(Remaining) { path => { ctx =>
-          val request = ctx.request
+    val routes: List[Route] = flinkRests.map { case (host, port) => pathPrefix(s"$host:$port") {
+      path(Remaining) { path => { ctx =>
+        val request = ctx.request
 
-          validateRequest(request) match {
-            case (false, reason) =>
-              ctx.complete(HttpResponse(400, entity = FlinkRestErrMock(List(s"Blocked requests due to $reason")).toJson.toString))
-            case (true, _) =>
-              val rpath = if (path.nonEmpty && !path.startsWith("/")) "/".concat(path) else path
-              val proxyUri = request.uri
-                .withScheme("http").withHost(host).withPort(port)
-                .withPath(Path(rpath))
-              val proxyReq = request.withUri(proxyUri)
-                .withHeaders(request.headers.filter(_.name() != "Timeout-Access"))
-              // println(s"proxy:[${request.method.name}] ${request.uri} => $proxyUri")
-              ctx.complete(Http().singleRequest(proxyReq))
-          }
-        }
+        validateRequest(request) match {
+          case (false, reason) =>
+            ctx.complete(HttpResponse(400, entity = FlinkRestErrMock(List(s"Blocked requests due to $reason")).toJson.toString))
+          case (true, _) =>
+            val rpath = if (path.nonEmpty && !path.startsWith("/")) "/".concat(path) else path
+            val proxyUri = request.uri
+              .withScheme("http").withHost(host).withPort(port)
+              .withPath(Path(rpath))
+            val proxyReq = request.withUri(proxyUri)
+              .withHeaders(request.headers.filter(_.name() != "Timeout-Access"))
+            // println(s"proxy:[${request.method.name}] ${request.uri} => $proxyUri")
+            ctx.complete(Http().singleRequest(proxyReq))
         }
       }
+      }
+    }
     }
     concat(routes: _*)(ctx)
   }
