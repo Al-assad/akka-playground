@@ -33,7 +33,7 @@ object ActorAskOutsideSample {
   }
 
 
-  def main2(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit = {
     implicit val system = ActorSystem(PingBot(), "ping-bot")
     implicit val timeout: Timeout = 3.seconds
     implicit val ec = system.executionContext
@@ -47,7 +47,7 @@ object ActorAskOutsideSample {
     system.terminate()
   }
 
-  def main(args: Array[String]): Unit = {
+  def main2(args: Array[String]): Unit = {
     implicit val system = ActorSystem(PingBot(), "ping-bot")
     implicit val timeout: Timeout = 3.seconds
     implicit val ec = system.executionContext
