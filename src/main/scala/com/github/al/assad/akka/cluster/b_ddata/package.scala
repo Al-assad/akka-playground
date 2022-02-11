@@ -2,7 +2,7 @@ package com.github.al.assad.akka.cluster
 
 import com.typesafe.config.ConfigFactory
 
-package object ddata {
+package object b_ddata {
 
   val singleClusterConf = ConfigFactory.parseString(
     """

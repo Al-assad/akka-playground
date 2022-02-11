@@ -1,4 +1,4 @@
-package com.github.al.assad.akka.cluster.ddata
+package com.github.al.assad.akka.cluster.b_ddata
 
 import akka.actor.testkit.typed.scaladsl.{LogCapturing, ScalaTestWithActorTestKit}
 import akka.actor.typed.scaladsl.AskPattern.{Askable, schedulerFromActorSystem}
@@ -6,7 +6,7 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
 import akka.cluster.ddata.typed.scaladsl.{DistributedData, Replicator}
 import akka.cluster.ddata.{GCounter, GCounterKey, SelfUniqueAddress}
-import com.github.al.assad.akka.cluster.ddata.GCounterCache.{GetValue, Increment}
+import com.github.al.assad.akka.cluster.b_ddata.GCounterCache.{GetValue, Increment}
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.{Await, Future}
