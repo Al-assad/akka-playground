@@ -23,7 +23,7 @@ object GCounterCache {
   sealed trait Command
   // increment the counter
   case object Increment extends Command
-  case class Increment(value: Int) extends Command
+  final case class Increment(value: Int) extends Command
   // get the Counter value from Replicator
   final case class GetValue(replyTo: ActorRef[Int]) extends Command
   // get the Counter value from local cached
@@ -49,7 +49,7 @@ object GCounterCache {
       replicatorAdapter.subscribe(key, InternalSubscribe.apply)
 
       def updated(cachedValue: Int): Behavior[Command] = Behaviors.receiveMessage[Command] {
-        // Outer Command
+        // External Command
         case Increment =>
           replicatorAdapter.askUpdate(
             replyTo => Replicator.Update(key, GCounter.empty, Replicator.WriteLocal, replyTo)(_ :+ 1),
