@@ -13,7 +13,7 @@ import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.DurationInt
 
 /**
- * Akka Distributed Data GCount Demo.
+ * Akka Distributed Data GCounter Demo.
  * GCounter is a “grow only counter”. It only supports increments, no decrements.
  *
  * https://doc.akka.io/docs/akka/current/typed/distributed-data.html#counters
