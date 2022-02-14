@@ -1,16 +1,15 @@
 package com.github.al.assad.akka.cluster.b_ddata
 
-import akka.actor.typed.{ActorRef, Behavior}
 import akka.actor.typed.scaladsl.Behaviors
-import akka.cluster.ddata.{GCounter, GCounterKey}
+import akka.actor.typed.{ActorRef, Behavior}
 import akka.cluster.ddata.typed.scaladsl.{DistributedData, Replicator}
+import akka.cluster.ddata.{GCounter, GCounterKey}
 import akka.util.Timeout
 
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
 object YaCounterCache {
-
   sealed trait Command
   final case class Increment(value: Int = 1) extends Command
   final case class GetValue(replyTo: ActorRef[Int]) extends Command
@@ -51,5 +50,4 @@ object YaCounterCache {
       }
     }
   }
-
 }

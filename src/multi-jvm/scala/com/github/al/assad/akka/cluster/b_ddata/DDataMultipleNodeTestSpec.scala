@@ -21,7 +21,6 @@ import scala.language.postfixOps
 /**
  * run all tests: sbt multi-jvm:test
  * run current tests: sbt multi-jvm:testOnly com.github.al.assad.akka.cluster.b_ddata.DDataMultipleNodeTestSpec
- *
  */
 
 // multiple node config
@@ -51,8 +50,6 @@ class DDataMultipleNodeTestSpec extends MultiNodeSpec(DDataMultipleNodeTestSpecC
 
   implicit val typedSystem: ActorSystem[Nothing] = system.toTyped
   val cluster = Cluster(typedSystem)
-  // DData Cache
-  val counterCache = system.spawnAnonymous(YaCounterCache("counter-1"))
 
   def join(from: RoleName, to: RoleName): Unit = {
     runOn(from) {
@@ -76,8 +73,52 @@ class DDataMultipleNodeTestSpec extends MultiNodeSpec(DDataMultipleNodeTestSpecC
       enterBarrier("after-1")
     }
 
-  }
+    "replicate cached entry" in within(10.seconds) {
+      val counterCache = system.spawnAnonymous(YaCounterCache("counter-1"))
+      runOn(node1) {
+        counterCache ! YaCounterCache.Increment()
+      }
+      awaitAssert {
+        val probe = TestProbe[Int]
+        counterCache ! YaCounterCache.GetValue(probe.ref)
+        probe.expectMessage(1)
+      }
+      enterBarrier("after-2")
+    }
 
+    "replicate many cached entries" in within(30.seconds) {
+      val counterCache = system.spawnAnonymous(YaCounterCache("counter-2"))
+      runOn(node1) {
+        (1 to 50).foreach(_ => counterCache ! YaCounterCache.Increment())
+      }
+      awaitAssert {
+        val probe = TestProbe[Int]
+        counterCache ! YaCounterCache.GetValue(probe.ref)
+        probe.expectMessage(50)
+      }
+      enterBarrier("after-3")
+    }
+
+    "replicate cached entry on different node" in within(10.seconds) {
+      val counterCache = system.spawnAnonymous(YaCounterCache("counter-3"))
+      runOn(node1) {
+        counterCache ! YaCounterCache.Increment()
+      }
+      runOn(node2) {
+        counterCache ! YaCounterCache.Increment()
+      }
+      runOn(node3) {
+        counterCache ! YaCounterCache.Increment()
+      }
+      awaitAssert {
+        val probe = TestProbe[Int]
+        counterCache ! YaCounterCache.GetValue(probe.ref)
+        probe.expectMessage(3)
+      }
+      enterBarrier("after-4")
+    }
+
+  }
 }
 
 

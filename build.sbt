@@ -12,6 +12,7 @@ lazy val akkaHttpVersion = "10.2.7"
 // If you want to keep the application running while executing other
 // sbt tasks, consider https://github.com/spray/sbt-revolver/
 fork := true
+Test / parallelExecution := false
 
 libraryDependencies ++= Seq(
   // akka actor
