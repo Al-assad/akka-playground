@@ -9,4 +9,5 @@ package object akka {
     def waitResult(timeout: Duration = 3.seconds): T = Await.result(future, timeout)
   }
 
+
 }
