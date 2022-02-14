@@ -10,17 +10,22 @@ import akka.cluster.ddata.typed.scaladsl.Replicator.GetReplicaCount
 import akka.cluster.typed.{Cluster, Join}
 import akka.remote.testconductor.RoleName
 import akka.remote.testkit.{MultiNodeConfig, MultiNodeSpec}
-import com.github.al.assad.akka.cluster.MultiNodeSpecConfig.{node1, node2, node3}
 import com.github.al.assad.akka.cluster.STMultiNodeSpec
+import com.github.al.assad.akka.cluster.b_ddata.DDataMultipleNodeTestSpecConfig.{node1, node2, node3}
 import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
+
+/**
+ * run all tests: sbt multi-jvm:test
+ * run current tests: sbt multi-jvm:testOnly com.github.al.assad.akka.cluster.b_ddata.DDataMultipleNodeTestSpec
+ *
+ */
+
 // multiple node config
-
 object DDataMultipleNodeTestSpecConfig extends MultiNodeConfig {
-
   val node1 = role("node-1")
   val node2 = role("node-2")
   val node3 = role("node-3")
@@ -31,6 +36,11 @@ object DDataMultipleNodeTestSpecConfig extends MultiNodeConfig {
       |akka.log-dead-letters-during-shutdown = off
       |""".stripMargin))
 }
+
+// {TestName}MultiJvm{NodeName}
+class DDataMultipleNodeTestSpecMultiJvmNode1 extends DDataMultipleNodeTestSpec
+class DDataMultipleNodeTestSpecMultiJvmNode2 extends DDataMultipleNodeTestSpec
+class DDataMultipleNodeTestSpecMultiJvmNode3 extends DDataMultipleNodeTestSpec
 
 /**
  * https://doc.akka.io/docs/akka/current/multi-node-testing.html
