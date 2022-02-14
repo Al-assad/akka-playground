@@ -12,4 +12,5 @@ package object b_ddata {
        akka.remote.artery.canonical.hostname = 127.0.0.1
     """)
 
+
 }

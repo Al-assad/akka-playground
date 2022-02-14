@@ -16,17 +16,22 @@ fork := true
 libraryDependencies ++= Seq(
   // akka actor
   "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
+  "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion,
+
+  // akka cluster
   "com.typesafe.akka" %% "akka-cluster-typed" % akkaVersion,
+  "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion,
+
   // akka http
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
-  // akka actor test kit
-  "org.scalatest" %% "scalatest" % "3.2.9",
-  "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion,
+
   "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion,
+
   // other
+  "org.scalatest" %% "scalatest" % "3.2.9",
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "com.github.nscala-time" %% "nscala-time" % "2.30.0",
 )
