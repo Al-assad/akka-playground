@@ -12,6 +12,10 @@ import org.scalatest.wordspec.AnyWordSpecLike
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
+
+/**
+ * GSet : grow-only set
+ */
 //noinspection DuplicatedCode
 object GSetCache {
 

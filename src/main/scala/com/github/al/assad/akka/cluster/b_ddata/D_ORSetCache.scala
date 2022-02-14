@@ -13,6 +13,9 @@ import org.scalatest.wordspec.AnyWordSpecLike
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
+/**
+ * ORSet: observed-remove set
+ */
 //noinspection DuplicatedCode
 object ORSetCache {
 
