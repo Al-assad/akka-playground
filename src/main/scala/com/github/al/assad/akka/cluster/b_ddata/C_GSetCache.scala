@@ -12,6 +12,7 @@ import org.scalatest.wordspec.AnyWordSpecLike
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
+//noinspection DuplicatedCode
 object GSetCache {
 
   sealed trait Command
@@ -92,6 +93,7 @@ object GSetCache {
   }
 }
 
+//noinspection DuplicatedCode
 class GSetCacheSpec extends ScalaTestWithActorTestKit(singleClusterConf) with AnyWordSpecLike {
 
   "GSetCache" should {

@@ -10,4 +10,6 @@ package object akka {
   }
 
 
+  def Use[T, R](resource: => T)(func: T => R): R = func(resource)
+
 }
