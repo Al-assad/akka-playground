@@ -1,8 +1,8 @@
-package com.github.al.assad.akka.cluster
+package com.github.al.assad.akka
 
 import com.typesafe.config.ConfigFactory
 
-package object b_ddata {
+package object cluster {
 
   val singleClusterConf = ConfigFactory.parseString(
     """
@@ -11,6 +11,5 @@ package object b_ddata {
        akka.remote.artery.canonical.port = 0
        akka.remote.artery.canonical.hostname = 127.0.0.1
     """)
-
 
 }

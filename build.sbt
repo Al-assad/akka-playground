@@ -45,3 +45,9 @@ libraryDependencies ++= Seq(
   "tapir-sttp-client",
 ).map("com.softwaremill.sttp.tapir" %% _ % tapirVersion)
 
+
+// enable multiple jvm plugin
+lazy val root = (project in file("."))
+  .enablePlugins(MultiJvmPlugin)
+  .configs(MultiJvm)
+
