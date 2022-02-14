@@ -8,6 +8,7 @@ import akka.cluster.ddata.typed.scaladsl.{DistributedData, Replicator}
 import akka.util.Timeout
 import com.github.al.assad.akka.TestImplicit.TestProbeWrapper
 import com.github.al.assad.akka.cluster.b_ddata.PNCounterMapCache.{Decrement, GetAll, GetValue, Increment}
+import com.github.al.assad.akka.cluster.singleClusterConf
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.duration.DurationInt

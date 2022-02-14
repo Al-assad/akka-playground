@@ -7,6 +7,7 @@ import akka.cluster.ddata.typed.scaladsl.{DistributedData, Replicator}
 import akka.cluster.ddata.{GSet, GSetKey}
 import akka.util.Timeout
 import com.github.al.assad.akka.cluster.b_ddata.GSetCache.{Add, Contains, GetElements, Size}
+import com.github.al.assad.akka.cluster.singleClusterConf
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.duration.DurationInt

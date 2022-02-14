@@ -7,6 +7,7 @@ import akka.actor.typed.{ActorRef, Behavior}
 import akka.cluster.ddata.typed.scaladsl.{DistributedData, Replicator}
 import akka.cluster.ddata.{GCounter, GCounterKey, SelfUniqueAddress}
 import com.github.al.assad.akka.cluster.b_ddata.GCounterCache.{GetValue, Increment}
+import com.github.al.assad.akka.cluster.singleClusterConf
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.{Await, Future}

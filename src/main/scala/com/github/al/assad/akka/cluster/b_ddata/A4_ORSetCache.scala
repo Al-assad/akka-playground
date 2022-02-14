@@ -8,6 +8,7 @@ import akka.cluster.ddata.{ORSet, ORSetKey}
 import akka.util.Timeout
 import com.github.al.assad.akka.TestImplicit.TestProbeWrapper
 import com.github.al.assad.akka.cluster.b_ddata.ORSetCache._
+import com.github.al.assad.akka.cluster.singleClusterConf
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.duration.DurationInt

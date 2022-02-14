@@ -8,6 +8,7 @@ import akka.cluster.ddata.{ORMultiMap, ORMultiMapKey}
 import akka.util.Timeout
 import com.github.al.assad.akka.TestImplicit.TestProbeWrapper
 import com.github.al.assad.akka.cluster.b_ddata.ORMultiMapCache.{ContainsKey, ContainsValueOnKey, GetAll, GetValue, PutValue, RemoveAllByKey, RemoveValueByKey}
+import com.github.al.assad.akka.cluster.singleClusterConf
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.duration.DurationInt

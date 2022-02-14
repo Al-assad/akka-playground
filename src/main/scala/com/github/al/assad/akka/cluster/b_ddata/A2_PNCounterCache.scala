@@ -6,6 +6,7 @@ import akka.actor.typed.{ActorRef, Behavior}
 import akka.cluster.ddata.typed.scaladsl.{DistributedData, Replicator}
 import akka.cluster.ddata.{PNCounter, PNCounterKey}
 import com.github.al.assad.akka.cluster.b_ddata.PNGCounterCache.{Decrement, GetValue, Increment}
+import com.github.al.assad.akka.cluster.singleClusterConf
 import org.scalatest.wordspec.AnyWordSpecLike
 
 /**

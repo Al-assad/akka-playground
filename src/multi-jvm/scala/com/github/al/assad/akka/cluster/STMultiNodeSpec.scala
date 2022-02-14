@@ -5,9 +5,6 @@ import org.scalatest.BeforeAndAfterAll
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 
-import scala.language.implicitConversions
-
-
 /**
  * Scalatest scaffolding for multi-node testing
  */
@@ -22,4 +19,3 @@ trait STMultiNodeSpec extends MultiNodeSpecCallbacks with AnyWordSpecLike with M
     new WordSpecStringWrapper(s"$s (on node '${self.myself.name}', $getClass)")
 
 }
-

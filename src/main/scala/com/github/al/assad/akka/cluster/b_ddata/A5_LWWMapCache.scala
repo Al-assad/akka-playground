@@ -9,6 +9,7 @@ import akka.cluster.ddata.{LWWMap, LWWMapKey}
 import akka.util.Timeout
 import com.github.al.assad.akka.TestImplicit.TestProbeWrapper
 import com.github.al.assad.akka.cluster.b_ddata.LWWMapCache.{ContainsValue, GetAll, GetValue, PutValue, RemoveValue, Size, User}
+import com.github.al.assad.akka.cluster.singleClusterConf
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.duration.DurationInt
