@@ -101,3 +101,4 @@ project/plugins/project/
 *.class
 *.log
 
+/lmdb-storage/
