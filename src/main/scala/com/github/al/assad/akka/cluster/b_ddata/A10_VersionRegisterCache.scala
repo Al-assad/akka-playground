@@ -83,22 +83,22 @@ class VersionRegisterCacheSpec extends ScalaTestWithActorTestKit(singleClusterCo
 
     "test1" in {
       val cache = spawn(VersionRegisterCache("version-register-1"))
-      probeRef[Record](cache ! GetValue(_)) expectMessage Record.default
+      testProbeRef[Record](cache ! GetValue(_)) expectMessage Record.default
 
-      probe[Record] { tp =>
+      testProbe[Record] { tp =>
         cache ! SetValue(Record(1, "Tulzscha"))
         cache ! GetValue(tp.ref)
         tp.expectMessage(Record(1, "Tulzscha"))
       }
 
-      probe[Record] { tp =>
+      testProbe[Record] { tp =>
         cache ! SetValue(Record(2, "Abhoth"))
         cache ! SetValue(Record(2, "Nyarlathotep"))
         cache ! GetValue(tp.ref)
         tp.expectMessage(Record(2, "Abhoth"))
       }
 
-      probe[Record] { tp =>
+      testProbe[Record] { tp =>
         cache ! SetValue(Record(10, "Daoloth"))
         cache ! SetValue(Record(43, "Ghroth"))
         cache ! SetValue(Record(7, "Cthulhu"))

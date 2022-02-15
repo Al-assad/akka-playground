@@ -26,13 +26,13 @@ trait STAkkaSpec extends AnyWordSpecLike with LogCapturing {
       }
     }*/
 
-  def probe[M](func: TestProbe[M] => Any)(implicit system: ActorSystem[Nothing]): TestProbe[M] = {
+  def testProbe[M](func: TestProbe[M] => Any)(implicit system: ActorSystem[Nothing]): TestProbe[M] = {
     val probe = TestProbe[M]()
     func(probe)
     probe
   }
 
-  def probeRef[M](func: ActorRef[M] => Any)(implicit system: ActorSystem[Nothing]): TestProbe[M] = {
+  def testProbeRef[M](func: ActorRef[M] => Any)(implicit system: ActorSystem[Nothing]): TestProbe[M] = {
     val probe = TestProbe[M]()
     func(probe.ref)
     probe
