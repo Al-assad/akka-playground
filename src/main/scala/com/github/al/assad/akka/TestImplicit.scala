@@ -2,6 +2,7 @@ package com.github.al.assad.akka
 
 import akka.actor.testkit.typed.scaladsl.{LogCapturing, TestProbe}
 import akka.actor.typed.{ActorRef, ActorSystem}
+import com.typesafe.config.ConfigFactory
 import org.scalatest.wordspec.AnyWordSpecLike
 
 object TestImplicit {
@@ -25,6 +26,9 @@ trait STAkkaSpec extends AnyWordSpecLike with LogCapturing {
         probe
       }
     }*/
+
+  val logListenerConfig = ConfigFactory.parseString("""akka.loggers = ["akka.testkit.TestEventListener"]""")
+
 
   def testProbe[M](func: TestProbe[M] => Any)(implicit system: ActorSystem[Nothing]): TestProbe[M] = {
     val probe = TestProbe[M]()
