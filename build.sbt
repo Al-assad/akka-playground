@@ -21,6 +21,7 @@ libraryDependencies ++= Seq(
 
   // akka cluster
   "com.typesafe.akka" %% "akka-cluster-typed" % akkaVersion,
+  "com.typesafe.akka" %% "akka-serialization-jackson" % akkaVersion,
   "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion,
 
   // akka http

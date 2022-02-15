@@ -27,12 +27,14 @@ object RegisterCache {
 
 
   def apply(id: String): Behavior[Command] = Behaviors.setup { ctx =>
+    def log = ctx.log
 
     implicit val node = DistributedData(ctx.system).selfUniqueAddress
     implicit val timeout: Timeout = 10.seconds
     val cacheKey = LWWRegisterKey[String](id)
 
     DistributedData.withReplicatorMessageAdapter[Command, LWWRegister[String]] { replicator =>
+      log.info("start")
       Behaviors.receiveMessage {
 
         case SetValue(value) =>
