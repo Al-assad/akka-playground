@@ -13,7 +13,9 @@ object TestImplicit {
       func(probe.ref)
       probe
     }
-
   }
 
+
 }
+
+
