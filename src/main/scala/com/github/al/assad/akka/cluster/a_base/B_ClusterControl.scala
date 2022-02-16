@@ -4,18 +4,16 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorSystem, Behavior}
 import akka.cluster.MemberStatus
 import akka.cluster.typed.{Cluster, Join, Leave, PrepareForFullClusterShutdown}
-import com.github.al.assad.akka.{assertUnit, sleep}
+import com.github.al.assad.akka.sleep
 import com.typesafe.config.{Config, ConfigFactory}
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.DurationInt
-import scala.concurrent.{Await, Future}
 
 /**
  * Cluster Control sample
  */
 //noinspection DuplicatedCode
-object ClusterControl {
+trait ClusterControlTest {
 
   object RootBehavior {
     def apply(): Behavior[Nothing] = Behaviors.setup[Nothing] { ctx =>
@@ -42,27 +40,13 @@ object ClusterControl {
     system -> cluster
   }
 
-  // wait unit cluster to specified states
-  def waitClusterUnit(state: MemberStatus, clusters: Cluster*): Unit =
-    Await.result(Future.sequence(clusters map { cluster => assertUnit(cluster.selfMember.status == state) }), 45.seconds)
-
-  // wait unit cluster up
-  def waitClusterUp(clusters: Cluster*): Unit = waitClusterUnit(MemberStatus.Up, clusters: _*)
-
-  // println all membership
-  def printMembers(cluster: Cluster): Unit = println(
-    s"""@Message Observation from ${cluster.selfMember.address}
-       |${cluster.state.members.map("\t" + _.toString()).mkString("\n")}""".stripMargin)
-
 }
 
-
-import com.github.al.assad.akka.cluster.a_base.ClusterControl._
 
 /**
  * Test1: Wait unit all clusters becoming up state
  */
-object ClusterControlTest1 extends App {
+object ClusterControlTest1 extends App with ClusterControlTest {
   val (system1, cluster1) = launch(25251)
   val (system2, cluster2) = launch(25252)
   val (system3, cluster3) = launch(0)
@@ -75,7 +59,7 @@ object ClusterControlTest1 extends App {
 /**
  * Test2: Leave from cluster and rejoin to it
  */
-object ClusterControlLeaveTest extends App {
+object ClusterControlLeaveTest extends App with ClusterControlTest{
   val (system1, cluster1) = launch(25251)
   val (system2, cluster2) = launch(25252)
   val (system3, cluster3) = launch(0)
@@ -118,7 +102,7 @@ object ClusterControlLeaveTest extends App {
 /**
  * Test3: Join to Cluster automatically via config
  */
-object ClusterControlJoinAutomaticallyTest extends App {
+object ClusterControlJoinAutomaticallyTest extends App with ClusterControlTest{
   val (system1, cluster1) = launch(25251)
   val (system2, cluster2) = launch(25252)
 
@@ -141,7 +125,7 @@ object ClusterControlJoinAutomaticallyTest extends App {
 /**
  * Test4: Join to Cluster manually
  */
-object ClusterControlJoinManuallyTest extends App {
+object ClusterControlJoinManuallyTest extends App with ClusterControlTest{
   val (system1, cluster1) = launch(25251)
   val (system2, cluster2) = launch(25252)
 
@@ -168,7 +152,7 @@ object ClusterControlJoinManuallyTest extends App {
  * Test5: terminate cluster
  */
 
-object ClusterControlShutdownAllTest extends App {
+object ClusterControlShutdownAllTest extends App with ClusterControlTest{
   val (system1, cluster1) = launch(25251)
   val (system2, cluster2) = launch(25252)
   val (system3, cluster3) = launch(0)
