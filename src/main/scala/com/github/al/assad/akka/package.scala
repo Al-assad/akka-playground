@@ -1,8 +1,9 @@
 package com.github.al.assad
 
-import scala.concurrent.{Await, Future}
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.{Duration, DurationInt}
-import scala.language.implicitConversions
+import scala.concurrent.{Await, Future}
+import scala.language.{implicitConversions, postfixOps}
 
 package object akka {
 
@@ -17,5 +18,14 @@ package object akka {
   def sleepForever(): Unit = sleep(1.day)
 
   implicit def durationToMillis(duration: Duration): Int = duration.toMillis.toInt
+
+  def assertUnit(cond: => Boolean, interval: Duration = 500 milliseconds): Future[Unit] =
+    Future {
+      assert(cond)
+    } recoverWith { case _ =>
+      sleep(interval)
+      assertUnit(cond)
+    }
+
 
 }
