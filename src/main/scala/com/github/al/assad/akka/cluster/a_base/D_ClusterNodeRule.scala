@@ -1,11 +1,13 @@
 package com.github.al.assad.akka.cluster.a_base
 
+import akka.actor.typed.scaladsl.AskPattern.Askable
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 import akka.cluster.typed.Cluster
 import akka.util.Timeout
 import com.typesafe.config.ConfigFactory
 
+import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Success}
 
@@ -37,12 +39,20 @@ trait ClusterNodeRuleTest {
 
       Behaviors.receiveMessage {
         case cmd: ClusterListenerGuardian.Command => listener match {
-          case Some(ref) => ref ! cmd; Behaviors.same
-          case None => throw new IllegalStateException(s"ClusterListenerGuardian Actor not exist on {${selfMember.address}}")
+          case Some(ref) =>
+            ref ! cmd
+            Behaviors.same
+          case None =>
+            ctx.log.error(s"ClusterListenerGuardian Actor not exist on {${selfMember.address}}")
+            Behaviors.unhandled
         }
         case cmd: DotterGuardian.Command => dotter match {
-          case Some(ref) => ref ! cmd; Behaviors.same
-          case None => throw new IllegalStateException(s"DotterGuardian Actor not exist on {${selfMember.address}}")
+          case Some(ref) =>
+            ref ! cmd
+            Behaviors.same
+          case None =>
+            ctx.log.error(s"DotterGuardian Actor not exist on {${selfMember.address}}")
+            Behaviors.unhandled
         }
       }
     }
@@ -95,7 +105,7 @@ trait ClusterNodeRuleTest {
     val config = ConfigFactory
       .parseString(
         s"""akka.remote.artery.canonical.port= $port
-           |akka.cluster.role = [${roles.mkString(",")}]
+           |akka.cluster.roles = [${roles.mkString(",")}]
            |""".stripMargin)
       .withFallback(ConfigFactory.load("cluster-base"))
 
@@ -109,6 +119,35 @@ trait ClusterNodeRuleTest {
  */
 object ClusterNodeRuleTest1 extends App with ClusterNodeRuleTest {
 
-  val system1 = launch(2551, Array("listener"))
+  val system1 = launch(25251, Array("listener"))
+  val system2 = launch(25252, Array("listener", "dotter"))
+  val system3 = launch(25253, Array("listener"))
+
+  waitSystemUp(system1, system2, system3)
+  // print member of all nodes
+  printMembers(system1)
+  // print role of all nodes
+  println("@Message Node Roles \n" +
+    Seq(system1, system2, system3).map(Cluster(_).selfMember)
+      .map(member => s"  [${member.address}] ${member.roles.mkString(",")}")
+      .mkString("\n"))
+
+  // send Dot to system2
+  println("@Action system2 ! Dot")
+  system2 ! DotterGuardian.Dot
+  println("@Action system2 ! Dot")
+  system2 ! DotterGuardian.Dot
+
+  implicit val timeout: Timeout = 5.seconds
+  implicit val ec: ExecutionContext = system1.executionContext
+  implicit val scheduler = system1.scheduler
+
+  system2 ? (ref => DotterGuardian.Count(ref)) onComplete {
+    case Success(count) => println(s"@Message system2.Counter.count = $count")
+    case Failure(ex) => throw ex
+  }
+
+  // send Dot to system1, this message will not be handle
+  system3 ! DotterGuardian.Dot
 
 }

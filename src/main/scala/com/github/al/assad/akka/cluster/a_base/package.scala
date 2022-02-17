@@ -15,17 +15,18 @@ package object a_base {
   def waitClusterUnit(state: MemberStatus, clusters: Cluster*): Unit =
     Await.result(Future.sequence(clusters map { cluster => assertUnit(cluster.selfMember.status == state) }), 45.seconds)
 
-  def waitClusterUnit(state: MemberStatus, systems: ActorSystem[_]*): Unit = waitClusterUnit(state, systems.map(system => Cluster(system)): _*)
-
   // wait unit cluster up
   def waitClusterUp(clusters: Cluster*): Unit = waitClusterUnit(MemberStatus.Up, clusters: _*)
-
-  def waitClusterUp(systems: ActorSystem[_]*): Unit = waitClusterUp(systems.map(system => Cluster(system)): _*)
 
   // println all membership
   def printMembers(cluster: Cluster): Unit = println(
     s"""@Message Observation from ${cluster.selfMember.address}
        |${cluster.state.members.map("\t" + _.toString()).mkString("\n")}""".stripMargin)
 
+  def waitSystemUnit(state: MemberStatus, systems: ActorSystem[_]*): Unit = waitClusterUnit(state, systems.map(system => Cluster(system)): _*)
+
+  def waitSystemUp(systems: ActorSystem[_]*): Unit = waitClusterUp(systems.map(system => Cluster(system)): _*)
+
+  def printMembers(system: ActorSystem[_]): Unit = printMembers(Cluster(system))
 
 }
