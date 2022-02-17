@@ -1,4 +1,4 @@
-package com.github.al.assad.akka.actor.b_base_usecase
+package com.github.al.assad.akka.actor.b_base
 
 import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 import akka.actor.typed.scaladsl.Behaviors

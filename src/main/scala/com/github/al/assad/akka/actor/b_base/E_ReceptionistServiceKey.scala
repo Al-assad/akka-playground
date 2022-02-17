@@ -1,4 +1,4 @@
-package com.github.al.assad.akka.actor.b_base_usecase
+package com.github.al.assad.akka.actor.b_base
 
 import akka.actor.testkit.typed.scaladsl.{ScalaTestWithActorTestKit, TestProbe}
 import akka.actor.typed.receptionist.{Receptionist, ServiceKey}
@@ -6,8 +6,8 @@ import akka.actor.typed.scaladsl.AskPattern.{Askable, schedulerFromActorSystem}
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
 import akka.util.Timeout
-import com.github.al.assad.akka.actor.b_base_usecase.E_ReceptionistServiceKey.PingBot.PingBotServiceKey
-import com.github.al.assad.akka.actor.b_base_usecase.E_ReceptionistServiceKey.{PingBot, PingBotManager}
+import com.github.al.assad.akka.actor.b_base.E_ReceptionistServiceKey.PingBot.PingBotServiceKey
+import com.github.al.assad.akka.actor.b_base.E_ReceptionistServiceKey.{PingBot, PingBotManager}
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.ExecutionContext.Implicits.global
