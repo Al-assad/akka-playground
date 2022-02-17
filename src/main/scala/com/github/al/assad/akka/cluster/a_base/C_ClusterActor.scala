@@ -25,6 +25,7 @@ trait ClusterActorTest {
 }
 
 
+//noinspection DuplicatedCode
 object DotterBot {
 
   sealed trait Command
