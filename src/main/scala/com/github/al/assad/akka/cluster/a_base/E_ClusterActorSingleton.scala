@@ -35,7 +35,6 @@ trait ClusterActorSingletonTest {
     ActorSystem[SingletonDotterGuardian.Command](SingletonDotterGuardian(), "ClusterSystem", config)
   }
 
-
 }
 
 
