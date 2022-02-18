@@ -26,6 +26,4 @@ package object akka {
       sleep(interval)
       assertUnit(cond)
     }
-
-
 }

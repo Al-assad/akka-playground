@@ -23,10 +23,24 @@ package object a_base {
     s"""@Message Observation from ${cluster.selfMember.address}
        |${cluster.state.members.map("\t" + _.toString()).mkString("\n")}""".stripMargin)
 
-  def waitSystemUnit(state: MemberStatus, systems: ActorSystem[_]*): Unit = waitClusterUnit(state, systems.map(system => Cluster(system)): _*)
+  def waitSystemUnit(state: MemberStatus, systems: ActorSystem[_]*): AkkaSystemPartition = {
+    waitClusterUnit(state, systems.map(system => Cluster(system)): _*)
+    new AkkaSystemPartition(IndexedSeq(systems: _*))
+  }
 
-  def waitSystemUp(systems: ActorSystem[_]*): Unit = waitClusterUp(systems.map(system => Cluster(system)): _*)
+  def waitSystemUp(systems: ActorSystem[_]*): AkkaSystemPartition = {
+    waitClusterUp(systems.map(system => Cluster(system)): _*)
+    new AkkaSystemPartition(IndexedSeq(systems: _*))
+  }
 
   def printMembers(system: ActorSystem[_]): Unit = printMembers(Cluster(system))
+
+
+  //noinspection UnitMethodIsParameterless
+  class AkkaSystemPartition(systems: Seq[ActorSystem[_]]) {
+    def printState: Unit = printMembers(systems.head)
+    def printlnStateSeparately: Unit = systems.foreach(a_base.printMembers)
+  }
+
 
 }
