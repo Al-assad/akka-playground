@@ -42,5 +42,4 @@ package object a_base {
     def printlnStateSeparately: Unit = systems.foreach(a_base.printMembers)
   }
 
-
 }

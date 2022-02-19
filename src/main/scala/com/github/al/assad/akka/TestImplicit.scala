@@ -29,7 +29,6 @@ trait STAkkaSpec extends AnyWordSpecLike with LogCapturing {
 
   val logListenerConfig = ConfigFactory.parseString("""akka.loggers = ["akka.testkit.TestEventListener"]""")
 
-
   def testProbe[M](func: TestProbe[M] => Any)(implicit system: ActorSystem[Nothing]): TestProbe[M] = {
     val probe = TestProbe[M]()
     func(probe)
