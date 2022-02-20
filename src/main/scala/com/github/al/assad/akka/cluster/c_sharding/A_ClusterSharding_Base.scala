@@ -1,4 +1,4 @@
-package com.github.al.assad.akka.cluster.a_base
+package com.github.al.assad.akka.cluster.c_sharding
 
 import akka.actor.typed._
 import akka.actor.typed.scaladsl.AskPattern.Askable
@@ -9,7 +9,8 @@ import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, Entity, EntityType
 import akka.util.Timeout
 import com.github.al.assad.akka.BehaviorLoggerImplicit.log
 import com.github.al.assad.akka.cluster.CborSerializable
-import com.github.al.assad.akka.cluster.a_base.ClusterShardingTest1.{printGetDefault, printGetDefaultRegionAddress}
+import com.github.al.assad.akka.cluster.a_base.{printMembers, waitSystemUnit, waitSystemUp}
+import com.github.al.assad.akka.cluster.c_sharding.ClusterShardingTest1.{printGetDefault, printGetDefaultRegionAddress}
 import com.github.al.assad.akka.sleep
 import com.typesafe.config.ConfigFactory
 
@@ -121,7 +122,7 @@ trait ClusterShardingTest {
 }
 
 
-import com.github.al.assad.akka.cluster.a_base.ClusterShardingTest.DotterShardRegionGuardian._
+import com.github.al.assad.akka.cluster.c_sharding.ClusterShardingTest.DotterShardRegionGuardian._
 
 /**
  * Testing send message to cluster default sharding region
