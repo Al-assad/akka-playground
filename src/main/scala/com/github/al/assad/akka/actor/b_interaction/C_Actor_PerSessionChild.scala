@@ -82,7 +82,7 @@ object ActorPerSessionChild {
         userStorage ! UserDB.GetUser(userId, ctx.self.narrow[User])
         cityStorage ! OrderDB.GetOrders(userId, ctx.self.narrow[Seq[Order]])
 
-        // session receive behavior: merge City and User to UserCity
+        // session receive behavior: merge Order and User to UserOrder
         def nextBehavior(): Behavior[AnyRef] = (user, orders) match {
           case (Some(u), Some(orders)) =>
             replyTo ! Some(UserOrder(u.id.toString, u.name, orders))
