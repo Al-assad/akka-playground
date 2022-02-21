@@ -27,6 +27,10 @@ libraryDependencies ++= Seq(
   // akka sharding
   "com.typesafe.akka" %% "akka-cluster-sharding-typed" % akkaVersion,
 
+  // akka persistence
+  "com.typesafe.akka" %% "akka-persistence-typed" % akkaVersion,
+  "com.typesafe.akka" %% "akka-persistence-testkit" % akkaVersion,
+
   // akka http
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
