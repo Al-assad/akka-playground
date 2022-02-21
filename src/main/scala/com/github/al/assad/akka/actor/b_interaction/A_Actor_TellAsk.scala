@@ -12,11 +12,13 @@ import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Success}
 
 /**
- * Actor tell and ask sample
+ * Actor tell and ask sample including:
+ *
  * - tell use case.
  * - ask use case.
  * - ask between actors.
  * - ask outside actor system.
+ * - ignore reply from actor.
  */
 object TellAndAskActor {
 
@@ -106,6 +108,11 @@ class TellAndAskActorSpec extends ScalaTestWithActorTestKit with AnyWordSpecLike
       val probe = TestProbe[String]()
       bot ! PingBot.Ping(probe.ref)
       println("Ask message outside actor system:" + probe.receiveMessage())
+    }
+    "ignore reply" in {
+      val bot = spawn(PingBot())
+      // bot ! PingBot.Ping()
+      bot ! PingBot.Ping(system.ignoreRef)
     }
   }
 

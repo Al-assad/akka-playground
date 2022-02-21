@@ -4,6 +4,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.{Duration, DurationInt}
 import scala.concurrent.{Await, Future}
 import scala.language.{implicitConversions, postfixOps}
+import scala.util.Random
 
 package object akka {
 
@@ -14,6 +15,8 @@ package object akka {
   def Use[T, R](resource: => T)(func: T => R): R = func(resource)
 
   def sleep(duration: Duration): Unit = Thread.sleep(duration.toMillis)
+
+  def sleep(milliseconds: Long): Unit = Thread.sleep(milliseconds)
 
   def sleepForever(): Unit = sleep(1.day)
 
@@ -26,4 +29,6 @@ package object akka {
       sleep(interval)
       assertUnit(cond)
     }
+
+  val rand = new Random
 }
