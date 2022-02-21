@@ -3,6 +3,7 @@ package com.github.al.assad.akka
 import akka.actor.testkit.typed.scaladsl.{LogCapturing, TestProbe}
 import akka.actor.typed.{ActorRef, ActorSystem}
 import com.typesafe.config.ConfigFactory
+import org.scalatest.Suite
 import org.scalatest.wordspec.AnyWordSpecLike
 
 object TestImplicit {
@@ -41,6 +42,10 @@ trait STAkkaSpec extends AnyWordSpecLike with LogCapturing {
     probe
   }
 
-
 }
 
+class RunSpec(spec: Suite, testName: String) extends App {
+    spec.execute(testName = testName)
+}
+
+// object ActorStyleSpec1 extends RunSpec(new ActorStyleSpec,"Counter should functional style")

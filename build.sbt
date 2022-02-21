@@ -1,3 +1,5 @@
+
+
 name := "akka-playground"
 
 version := "1.0"
@@ -41,8 +43,10 @@ libraryDependencies ++= Seq(
 
   // other
   "org.scalatest" %% "scalatest" % "3.2.9",
-  "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "ch.qos.logback" % "logback-classic" % "1.2.10",
   "com.github.nscala-time" %% "nscala-time" % "2.30.0",
+
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.4",
 )
 
 val tapirVersion = "0.20.0-M4"
@@ -59,4 +63,3 @@ libraryDependencies ++= Seq(
 lazy val root = (project in file("."))
   .enablePlugins(MultiJvmPlugin)
   .configs(MultiJvm)
-
