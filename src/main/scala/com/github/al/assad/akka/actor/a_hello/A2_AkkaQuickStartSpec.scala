@@ -6,7 +6,7 @@ import Greeter.{Greet, Greeted}
 import com.github.al.assad.akka.actor.a_hello.Greeter.{Greet, Greeted}
 import org.scalatest.wordspec.AnyWordSpecLike
 
-class AkkaQuickStartSpec extends ScalaTestWithActorTestKit with AnyWordSpecLike {
+class A2_AkkaQuickStartSpec extends ScalaTestWithActorTestKit with AnyWordSpecLike {
 
   "A Greeter" must {
     "reply to greeted" in {

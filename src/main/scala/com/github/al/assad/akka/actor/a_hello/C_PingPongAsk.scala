@@ -1,7 +1,7 @@
-package com.github.al.assad.akka.actor.b_base
+package com.github.al.assad.akka.actor.a_hello
 
-import akka.actor.typed.{ActorRef, ActorSystem, Behavior, Terminated}
 import akka.actor.typed.scaladsl.{ActorContext, Behaviors}
+import akka.actor.typed.{ActorRef, ActorSystem, Behavior, Terminated}
 import akka.util.Timeout
 
 import java.util.concurrent.CountDownLatch

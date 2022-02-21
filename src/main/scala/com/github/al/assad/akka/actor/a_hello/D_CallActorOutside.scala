@@ -1,15 +1,15 @@
-package com.github.al.assad.akka.actor.b_base
+package com.github.al.assad.akka.actor.a_hello
 
 import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
+import akka.actor.typed.scaladsl.AskPattern._
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 import akka.util.Timeout
 import org.scalatest.wordspec.AnyWordSpecLike
 
+import scala.concurrent.duration.DurationInt
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.util.{Failure, Success}
-import akka.actor.typed.scaladsl.AskPattern._
-import scala.concurrent.duration.DurationInt
 
 /**
  * visit Actor from outside

@@ -1,7 +1,7 @@
-package com.github.al.assad.akka.actor.b_base
+package com.github.al.assad.akka.actor.a_hello
 
-import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 import akka.actor.typed.scaladsl.Behaviors
+import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 
 /**
  * a simple ping-pong telling message example

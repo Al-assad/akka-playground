@@ -1,10 +1,10 @@
-package com.github.al.assad.akka.actor.b_base
+package com.github.al.assad.akka.actor.a_hello
 
 import akka.actor.testkit.typed.scaladsl.{ScalaTestWithActorTestKit, TestProbe}
 import akka.actor.typed.scaladsl.AskPattern.{Askable, schedulerFromActorSystem}
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
-import com.github.al.assad.akka.actor.b_base.MultipleServiceSample.{Guardian, ServiceA, ServiceB}
+import com.github.al.assad.akka.actor.a_hello.MultipleServiceSample.{Guardian, ServiceA, ServiceB}
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.Await

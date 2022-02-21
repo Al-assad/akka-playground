@@ -1,4 +1,4 @@
-package com.github.al.assad.akka.actor.b_base
+package com.github.al.assad.akka.actor.a_hello
 
 import akka.actor.typed._
 import akka.actor.typed.scaladsl.AskPattern._
