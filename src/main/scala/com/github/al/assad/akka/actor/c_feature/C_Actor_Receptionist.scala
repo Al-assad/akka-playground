@@ -45,7 +45,7 @@ object ActorReceptionist {
     }
   }
 
-  // Spawn PingBot
+  // PingBotGuardian: Spawn PingBot
   object PingBotGuardian {
     sealed trait Command
     final case class Touch(replyTo: ActorRef[String]) extends Command
@@ -61,7 +61,7 @@ object ActorReceptionist {
     }
   }
 
-  // Interact with PingBot via ServiceKey
+  // ThirdPinger: Interact with PingBot via ServiceKey
   object ThirdPinger {
     sealed trait Command
     final case object Touch extends Command
