@@ -31,4 +31,11 @@ package object akka {
     }
 
   val rand = new Random
+
+
+  def uuidShort(bit: Int = 8): String = {
+    val uuid = java.util.UUID.randomUUID()
+    val uuidStr = uuid.toString.replace("-", "")
+    uuidStr.substring(0, bit)
+  }
 }
