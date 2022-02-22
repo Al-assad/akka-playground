@@ -11,7 +11,7 @@ import scala.concurrent.duration.{DurationInt, FiniteDuration}
 import scala.language.postfixOps
 
 /**
- * Use timers to schedule messages to an actor.
+ * Use timers to schedule messages to an actor, This is another implementation of [[ ActorSchedulingMessageToSelf.MsgBuffer ]].
  *
  * https://doc.akka.io/docs/akka/current/typed/interaction-patterns.html#scheduling-messages-to-self
  */
@@ -28,7 +28,7 @@ object ActorSchedulingMessageToSelf2 {
 
     private case object BufferTimeKey
 
-    def apply(target: ActorRef[BatchValues], timeLimit: FiniteDuration, sizeLimit: Int): Behavior[Command] = Behaviors.setup { ctx =>
+    def apply(target: ActorRef[BatchValues], timeLimit: FiniteDuration, sizeLimit: Int): Behavior[Command] =
       Behaviors.withTimers { timers =>
         val buffer = ArrayBuffer.empty[String]
         resetTimer()
@@ -55,13 +55,13 @@ object ActorSchedulingMessageToSelf2 {
             Behaviors.same
         }
       }
-    }
   }
 
 }
 
 
 class ActorSchedulingMessageToSelf2Spec extends ScalaTestWithActorTestKit with AnyWordSpecLike {
+
   import ActorSchedulingMessageToSelf2.Buffer._
 
   "Buffer" should {
