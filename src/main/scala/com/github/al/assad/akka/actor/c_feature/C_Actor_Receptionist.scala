@@ -50,12 +50,12 @@ object ActorReceptionist {
     sealed trait Command
     final case class Touch(replyTo: ActorRef[String]) extends Command
 
-    def apply(): Behavior[Command] = Behaviors.setup { ctx =>
-      val pingBot = ctx.spawn(PingBot(), "PingBot")
+    def apply(botSize: Int = 1): Behavior[Command] = Behaviors.setup { ctx =>
+      val bots = (1 to botSize).map(i => ctx.spawn(PingBot(), s"PingBot-$i"))
 
       Behaviors.receiveMessage {
         case Touch(replyTo) =>
-          pingBot ! PingBot.Ping(replyTo)
+          bots.head ! PingBot.Ping(replyTo)
           Behaviors.same
       }
     }
@@ -66,9 +66,11 @@ object ActorReceptionist {
     sealed trait Command
     final case object Touch extends Command
     final case class Ping(replyTo: ActorRef[String]) extends Command
+    final case object TouchAll extends Command
 
     private case class InternalListingRes(listing: Receptionist.Listing) extends Command
     private case class InternalPingListingRes(listing: Receptionist.Listing, replyTo: ActorRef[String]) extends Command
+    private case class InternalTouchAllListingRes(listing: Receptionist.Listing) extends Command
 
     def apply(): Behavior[Command] = Behaviors.setup { ctx =>
       Behaviors.receiveMessage {
@@ -95,6 +97,17 @@ object ActorReceptionist {
         case InternalPingListingRes(listing, replyTo) =>
           listing.serviceInstances(PingBot.PingBotKey).head ! PingBot.Ping(replyTo)
           Behaviors.same
+
+        case TouchAll =>
+          ctx.system.receptionist ! Receptionist.Find(
+            PingBot.PingBotKey,
+            ctx.messageAdapter[Receptionist.Listing](InternalTouchAllListingRes.apply)
+          )
+          Behaviors.same
+
+        case InternalTouchAllListingRes(listing) =>
+          listing.serviceInstances(PingBot.PingBotKey).foreach(_ ! PingBot.Ping(ctx.system.ignoreRef))
+          Behaviors.same
       }
     }
 
@@ -113,7 +126,7 @@ class ActorReceptionistSpec extends ScalaTestWithActorTestKit with AnyWordSpecLi
     }
 
     "use service key to access actor" in {
-      spawn(PingBotGuardian())
+      spawn(PingBotGuardian(5))
       val pinger = spawn(ThirdPinger())
       pinger ! ThirdPinger.Touch
 
@@ -121,6 +134,8 @@ class ActorReceptionistSpec extends ScalaTestWithActorTestKit with AnyWordSpecLi
         pinger ! ThirdPinger.Ping(probe.ref)
         probe.expectMessage("pong")
       }
+
+      pinger ! ThirdPinger.TouchAll
     }
 
     "use service key to access actor outside akka system via Future" in {
