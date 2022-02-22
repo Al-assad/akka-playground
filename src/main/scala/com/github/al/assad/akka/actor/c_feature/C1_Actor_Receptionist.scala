@@ -95,10 +95,12 @@ object ActorReceptionist {
           Behaviors.same
 
         case InternalPingListingRes(listing, replyTo) =>
+          // ping the first PingBot
           listing.serviceInstances(PingBot.PingBotKey).head ! PingBot.Ping(replyTo)
           Behaviors.same
 
         case TouchAll =>
+          // ping the first PingBot
           ctx.system.receptionist ! Receptionist.Find(
             PingBot.PingBotKey,
             ctx.messageAdapter[Receptionist.Listing](InternalTouchAllListingRes.apply)
@@ -106,6 +108,7 @@ object ActorReceptionist {
           Behaviors.same
 
         case InternalTouchAllListingRes(listing) =>
+          // ping all PingBots
           listing.serviceInstances(PingBot.PingBotKey).foreach(_ ! PingBot.Ping(ctx.system.ignoreRef))
           Behaviors.same
       }
