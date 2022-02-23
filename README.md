@@ -7,7 +7,7 @@ Some examples for typed Akka referenced from https://doc.akka.io/docs/akka/curre
 * [Akka Actor](./src/main/scala/com/github/al/assad/akka/actor)
 * [Akka Cluster](./src/main/scala/com/github/al/assad/akka/cluster)
 * [Akka Persistence](./src/main/scala/com/github/al/assad/akka/persistence)
-* [Akka Stream](./src/main/scala/com/github/al/assad/akka/stream)
+* [Akka Streams](./src/main/scala/com/github/al/assad/akka/streams)
 * [Akka Http](./src/main/scala/com/github/al/assad/akka/http)
 
 
