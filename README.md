@@ -11,7 +11,5 @@ Some examples for typed Akka referenced from https://doc.akka.io/docs/akka/curre
 * [Akka Http](./src/main/scala/com/github/al/assad/akka/http)
 
 
-
-<br>
 <br>
 
