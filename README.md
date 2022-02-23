@@ -4,11 +4,12 @@ Some examples for typed Akka referenced from https://doc.akka.io/docs/akka/curre
 
 ### Catalog
 
-* [Akka Actor](./src/main/scala/com/github/al/assad/akka/actor)
-* [Akka Cluster](./src/main/scala/com/github/al/assad/akka/cluster)
-* [Akka Persistence](./src/main/scala/com/github/al/assad/akka/persistence)
-* [Akka Streams](./src/main/scala/com/github/al/assad/akka/streams)
-* [Akka Http](./src/main/scala/com/github/al/assad/akka/http)
+* [Akka Actor](./src/main/scala/com/github/al/assad/akka/Actor)
+* [Akka Cluster](./src/main/scala/com/github/al/assad/akka/Cluster)
+* [Akka Persistence](./src/main/scala/com/github/al/assad/akka/Persistence)
+* [Akka Streams](./src/main/scala/com/github/al/assad/akka/Streams)
+* [Akka Http](./src/main/scala/com/github/al/assad/akka/Http)
+* [Akka gRPC](./src/main/scala/com/github/al/assad/akka/gRpc)
 
 
 <br>
