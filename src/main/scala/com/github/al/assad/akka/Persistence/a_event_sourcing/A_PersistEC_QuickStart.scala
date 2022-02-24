@@ -4,7 +4,7 @@ import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import akka.actor.typed.{ActorRef, Behavior}
 import akka.persistence.typed.PersistenceId
 import akka.persistence.typed.scaladsl.{Effect, EventSourcedBehavior}
-import com.github.al.assad.akka.Persistence.inmenBackendConf
+import com.github.al.assad.akka.Persistence.{CborSerializable, inmenBackendConf}
 import org.scalatest.wordspec.AnyWordSpecLike
 
 /**
@@ -20,13 +20,13 @@ object PersistenceQuickStart {
    */
   object SimplePersistentActor {
     // CQRS Command
-    sealed trait Command
+    sealed trait Command extends CborSerializable
     final case class Add(data: String) extends Command
     case object Clear extends Command
     final case class GetHistory(replyTo: ActorRef[Seq[String]]) extends Command
 
     // CQRS Event
-    sealed trait Event
+    sealed trait Event extends CborSerializable
     final case class Added(data: String) extends Event
     case object Cleared extends Event
 

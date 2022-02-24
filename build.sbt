@@ -17,27 +17,26 @@ Test / parallelExecution := false
 libraryDependencies ++= Seq(
   // akka actor
   "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
-  "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion,
+  "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion, // actor testkit
 
   // akka cluster
   "com.typesafe.akka" %% "akka-cluster-typed" % akkaVersion,
   "com.typesafe.akka" %% "akka-serialization-jackson" % akkaVersion,
-  "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion,
+  "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion, // cluster multi-node testkit
 
   // akka sharding
   "com.typesafe.akka" %% "akka-cluster-sharding-typed" % akkaVersion,
 
   // akka persistence
   "com.typesafe.akka" %% "akka-persistence-typed" % akkaVersion,
-  "com.typesafe.akka" %% "akka-persistence-testkit" % akkaVersion,
+  "com.typesafe.akka" %% "akka-persistence-testkit" % akkaVersion, // akka persistence testkit
+  "com.typesafe.akka" %% "akka-persistence-query" % akkaVersion, // akka persistence query
 
   // akka http
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
-
-  "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion,
-  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion,
+  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion, // akka http testkit
 
   // other
   "org.scalatest" %% "scalatest" % "3.2.9",

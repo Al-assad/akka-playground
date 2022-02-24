@@ -4,8 +4,7 @@ import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import akka.actor.typed.{Behavior, SupervisorStrategy}
 import akka.persistence.typed.PersistenceId
 import akka.persistence.typed.scaladsl.{Effect, EventSourcedBehavior}
-import com.github.al.assad.akka.Cluster.CborSerializable
-import com.github.al.assad.akka.Persistence.inmenBackendConf
+import com.github.al.assad.akka.Persistence.{CborSerializable, inmenBackendConf}
 import com.github.al.assad.akka.sleep
 import org.scalatest.wordspec.AnyWordSpecLike
 

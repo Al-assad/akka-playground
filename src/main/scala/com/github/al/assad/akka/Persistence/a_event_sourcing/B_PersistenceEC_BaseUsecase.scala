@@ -6,8 +6,7 @@ import akka.actor.typed._
 import akka.pattern.StatusReply
 import akka.persistence.typed.scaladsl.{Effect, EventSourcedBehavior}
 import akka.persistence.typed.{PersistenceId, RecoveryCompleted}
-import com.github.al.assad.akka.Cluster.CborSerializable
-import com.github.al.assad.akka.Persistence.inmenBackendConf
+import com.github.al.assad.akka.Persistence.{CborSerializable, inmenBackendConf}
 import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.duration.DurationInt
