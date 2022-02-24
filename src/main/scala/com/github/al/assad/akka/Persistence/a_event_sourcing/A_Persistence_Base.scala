@@ -12,6 +12,7 @@ import org.scalatest.wordspec.AnyWordSpecLike
  *
  * https://doc.akka.io/docs/akka/current/typed/persistence.html
  */
+//noinspection DuplicatedCode
 object PersistenceBase {
 
   /**
