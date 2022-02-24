@@ -9,13 +9,11 @@ scalaVersion := "2.13.7"
 lazy val akkaVersion = "2.6.18"
 lazy val akkaHttpVersion = "10.2.7"
 
-// Run in a separate JVM, to make sure sbt waits until all threads have
-// finished before returning.
-// If you want to keep the application running while executing other
-// sbt tasks, consider https://github.com/spray/sbt-revolver/
 fork := true
 Test / parallelExecution := false
 
+// The following testkit dependencies are deliberately not marked as Test
+// in order to write scalatest in the sample code.
 libraryDependencies ++= Seq(
   // akka actor
   "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
@@ -44,11 +42,11 @@ libraryDependencies ++= Seq(
   // other
   "org.scalatest" %% "scalatest" % "3.2.9",
   "ch.qos.logback" % "logback-classic" % "1.2.10",
-  "com.github.nscala-time" %% "nscala-time" % "2.30.0",
-
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.4",
+  "com.github.nscala-time" %% "nscala-time" % "2.30.0",
 )
 
+// tapir for akka-http
 val tapirVersion = "0.20.0-M4"
 libraryDependencies ++= Seq(
   "tapir-core",
