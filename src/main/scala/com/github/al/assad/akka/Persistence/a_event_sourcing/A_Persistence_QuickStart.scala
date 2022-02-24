@@ -13,7 +13,7 @@ import org.scalatest.wordspec.AnyWordSpecLike
  * https://doc.akka.io/docs/akka/current/typed/persistence.html
  */
 //noinspection DuplicatedCode
-object PersistenceBase {
+object PersistenceQuickStart {
 
   /**
    * A simple persistent actor.
@@ -62,13 +62,13 @@ object PersistenceBase {
 }
 
 
-class PersistenceBaseSpec extends ScalaTestWithActorTestKit(inmenBackendConf) with AnyWordSpecLike {
-  import PersistenceBase._
+class PersistenceQuickStartSpec extends ScalaTestWithActorTestKit(inmenBackendConf) with AnyWordSpecLike {
+  import PersistenceQuickStart._
 
   "Akka Persistence" should {
 
     "SimplePersistentActor" in {
-      import PersistenceBase.SimplePersistentActor._
+      import PersistenceQuickStart.SimplePersistentActor._
       val actor = spawn(SimplePersistentActor("test-1"))
 
       actor ! Add("a")
