@@ -6,6 +6,7 @@ import akka.actor.typed._
 import akka.pattern.StatusReply
 import akka.persistence.typed.scaladsl.{Effect, EventSourcedBehavior}
 import akka.persistence.typed.{PersistenceId, RecoveryCompleted}
+import com.github.al.assad.akka.Cluster.CborSerializable
 import com.github.al.assad.akka.Persistence.inmenBackendConf
 import org.scalatest.wordspec.AnyWordSpecLike
 
@@ -28,18 +29,18 @@ object PersistenceUseCase {
 
   trait BasePersistentActor {
     // CQRS Command
-    sealed trait Command
+    sealed trait Command extends CborSerializable
     final case class Add(data: String) extends Command
     case object Clear extends Command
     final case class GetHistory(replyTo: ActorRef[Seq[String]]) extends Command
 
     // CQRS Event
-    sealed trait Event
+    sealed trait Event extends CborSerializable
     final case class Added(data: String) extends Event
     case object Cleared extends Event
 
     // CQRS State of the actor
-    final case class State(dataHistory: Seq[String])
+    final case class State(dataHistory: Seq[String]) extends CborSerializable
 
     // command handler
     def commandHandler: (State, Command) => Effect[Event, State] = { (state, command) =>
