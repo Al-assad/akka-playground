@@ -15,6 +15,13 @@ object TestImplicit {
       probe
     }
   }
+
+  def testProbe[M](func: TestProbe[M] => Any)(implicit system: ActorSystem[Nothing]): TestProbe[M] = {
+    val probe = TestProbe[M]()
+    func(probe)
+    probe
+  }
+
 }
 
 

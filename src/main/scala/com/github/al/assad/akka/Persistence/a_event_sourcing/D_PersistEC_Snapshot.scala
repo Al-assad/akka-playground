@@ -2,10 +2,10 @@ package com.github.al.assad.akka.Persistence.a_event_sourcing
 
 import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import akka.actor.typed.Behavior
-import akka.persistence.typed.scaladsl.{EventSourcedBehavior, RetentionCriteria}
 import akka.persistence.typed._
+import akka.persistence.typed.scaladsl.{EventSourcedBehavior, RetentionCriteria}
 import com.github.al.assad.akka.Persistence.a_event_sourcing.PersistenceSnapshot.PersistentActorWithSnapshot
-import com.github.al.assad.akka.Persistence.inmenBackendConf
+import com.github.al.assad.akka.Persistence.jdbcBackendJsonSerConf
 import com.github.al.assad.akka.sleep
 import org.scalatest.wordspec.AnyWordSpecLike
 
@@ -59,7 +59,7 @@ object PersistenceSnapshot {
 
 }
 
-class PersistenceSnapshotSpec extends ScalaTestWithActorTestKit(inmenBackendConf) with AnyWordSpecLike {
+class PersistenceSnapshotSpec extends ScalaTestWithActorTestKit(jdbcBackendJsonSerConf) with AnyWordSpecLike {
 
   import PersistentActorWithSnapshot._
 

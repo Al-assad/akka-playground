@@ -41,10 +41,11 @@ object PersistenceSample {
     // state
     final case class State(items: Map[Int, Article]) extends CborSerializable {
       def hasItem(id: Int): Boolean = items.contains(id)
+      def isPublish(id: Int): Boolean = items.get(id).exists(_.isPublish)
       def getItem(id: Int): Option[Article] = items.get(id)
       def addItem(id: Int, title: String): State = copy(items + (id -> Article(title)))
       def removeItem(id: Int): State = copy(items - id)
-      def publishItem(id: Int): State = copy(items.updated(id, items(id).copy(isPublic = true)))
+      def publishItem(id: Int): State = copy(items.updated(id, items(id).copy(isPublish = true)))
       def likeItem(id: Int): State = copy(items.updated(id, items(id).copy(likes = items(id).likes + 1)))
       def clearItems: State = copy(items = Map.empty)
       def toSummary: ArticleSummary = ArticleSummary(items.values.toSeq)
@@ -53,7 +54,7 @@ object PersistenceSample {
       def default: State = State(Map.empty)
     }
 
-    final case class Article(title: String, isPublic: Boolean = false, likes: Int = 0) extends CborSerializable
+    final case class Article(title: String, isPublish: Boolean = false, likes: Int = 0) extends CborSerializable
     final case class ArticleSummary(articles: Seq[Article]) extends CborSerializable
 
     // command handler
@@ -67,7 +68,7 @@ object PersistenceSample {
 
       case Publish(id) => if (state.hasItem(id)) Effect.persist(Published(id)) else Effect.none
       case Remove(id) => if (state.hasItem(id)) Effect.persist(Removed(id)) else Effect.none
-      case Like(id) => if (state.hasItem(id)) Effect.persist(Liked(id)) else Effect.none
+      case Like(id) => if (state.isPublish(id)) Effect.persist(Liked(id)) else Effect.none
       case Clear => Effect.persist(Cleared)
       case Get(id, replyTo) => Effect.reply(replyTo)(state.getItem(id))
       case GetSummary(replyTo) => Effect.reply(replyTo)(state.toSummary)
@@ -88,12 +89,12 @@ object PersistenceSample {
       emptyState = State.default,
       commandHandler = (state, command) => onCommand(state, command),
       eventHandler = (state, event) => onEvent(state, event))
-      .withRetention(RetentionCriteria.snapshotEvery(numberOfEvents = 100, keepNSnapshots = 2))
+      .withRetention(RetentionCriteria.snapshotEvery(numberOfEvents = 100, keepNSnapshots = 2).withDeleteEventsOnSnapshot)
       .onPersistFailure(SupervisorStrategy.restartWithBackoff(200.millis, 5.seconds, 0.1))
   }
 }
 
-
+//noinspection DuplicatedCode
 class PersistenceSampleSpec extends ScalaTestWithActorTestKit(inmenBackendConf) with AnyWordSpecLike {
 
   import PersistenceSample._

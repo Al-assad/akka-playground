@@ -8,6 +8,7 @@ scalaVersion := "2.13.7"
 
 lazy val akkaVersion = "2.6.18"
 lazy val akkaHttpVersion = "10.2.7"
+lazy val slickVersion = "3.3.3"
 
 fork := true
 Test / parallelExecution := false
@@ -31,6 +32,13 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-persistence-typed" % akkaVersion,
   "com.typesafe.akka" %% "akka-persistence-testkit" % akkaVersion, // akka persistence testkit
   "com.typesafe.akka" %% "akka-persistence-query" % akkaVersion, // akka persistence query
+
+  // akka persistence - jdbc backend plugin
+  "com.lightbend.akka" %% "akka-persistence-jdbc" % "5.0.4",
+  "com.typesafe.akka" %% "akka-persistence-query" % akkaVersion,
+  "com.typesafe.slick" %% "slick" % slickVersion,
+  "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
+  "org.postgresql" % "postgresql" % "42.3.3",      // use postgresql as backend
 
   // akka http
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
