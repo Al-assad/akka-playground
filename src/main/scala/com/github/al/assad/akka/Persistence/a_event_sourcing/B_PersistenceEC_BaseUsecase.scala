@@ -168,6 +168,21 @@ object PersistenceUseCase {
 
   }
 
+  /**
+   * Use case: Tagging events
+   */
+  object PersistentActorWithTagging extends BasePersistentActor {
+    def apply(id: String): Behavior[Command] =
+      EventSourcedBehavior[Command, Event, State](
+        persistenceId = PersistenceId.ofUniqueId(id),
+        emptyState = State(Seq.empty),
+        commandHandler = commandHandler,
+        eventHandler = eventHandler)
+        .withTagger {
+          case Added(data) => if (data.nonEmpty) Set("add-ops", "ec-sample") else Set("add-empty", "ec-sample")
+          case Cleared => Set("clear-ops", "ec-sample")
+        }
+  }
 
 }
 
