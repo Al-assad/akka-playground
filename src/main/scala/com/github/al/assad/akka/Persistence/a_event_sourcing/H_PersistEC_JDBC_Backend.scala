@@ -1,11 +1,18 @@
 package com.github.al.assad.akka.Persistence.a_event_sourcing
 
+import akka.NotUsed
 import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
+import akka.persistence.jdbc.query.scaladsl.JdbcReadJournal
+import akka.persistence.query.{EventEnvelope, PersistenceQuery}
+import akka.stream.scaladsl.Source
 import com.github.al.assad.akka.Persistence.jdbcBackendJsonSerConf
 import com.github.al.assad.akka.TestImplicit.testProbe
+import com.github.nscala_time.time.Imports.DateTime
 import org.scalatest.wordspec.AnyWordSpecLike
 
-import scala.concurrent.duration.DurationInt
+import java.util.Date
+import scala.concurrent.Await
+import scala.concurrent.duration.{Duration, DurationInt}
 import scala.language.postfixOps
 
 /**
@@ -84,10 +91,46 @@ class PersistenceJDBCBackendSpec
       }
     }
 
-    "testing persistence query" in {
+  }
 
+  // persistence query
+  "query jdbc journal" should {
+
+    // readJournal
+    val readJournal: JdbcReadJournal =
+      PersistenceQuery(system).readJournalFor[JdbcReadJournal](JdbcReadJournal.Identifier)
+
+    // all events: It is a endless stream
+    val willNotCompletedStreams: Source[EventEnvelope, NotUsed] =
+      readJournal.eventsByPersistenceId("assad", 0, Long.MaxValue)
+
+    // current events: It a enable stream
+    val willCompletedStreams: Source[EventEnvelope, NotUsed] =
+      readJournal.currentEventsByPersistenceId("assad", 0, Long.MaxValue)
+
+    "query all events" in {
+      val f = willNotCompletedStreams.runForeach(println)
+      Await.result(f, Duration.Inf)
     }
 
+    "query all currents events" in {
+      val f = willCompletedStreams.runForeach(println)
+      Await.result(f, Duration.Inf)
+    }
+
+    "query events with filter" in {
+      val f = willCompletedStreams.filter(e => e.event.isInstanceOf[Added]).runForeach(println)
+      Await.result(f, Duration.Inf)
+    }
+
+    "query events with mapper" in {
+      val f = willCompletedStreams
+        .filter(_.event.isInstanceOf[Liked])
+        .filter(_.timestamp > DateTime.now.minusHours(5).getMillis)
+        .map(e => e.event.asInstanceOf[Liked].id -> new DateTime(new Date(e.timestamp)).toString("yyyy-MM-dd HH:mm:ss.SSS"))
+        .runForeach(println)
+      Await.result(f, Duration.Inf)
+    }
   }
 
 }
