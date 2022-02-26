@@ -38,9 +38,7 @@ object PersistenceQuickStart {
       command match {
         case Add(data) => Effect.persist(Added(data))
         case Clear => Effect.persist(Cleared)
-        case GetHistory(replyTo) =>
-          replyTo ! state.dataHistory
-          Effect.none
+        case GetHistory(replyTo) => Effect.reply(replyTo)(state.dataHistory)
       }
     }
 
@@ -62,7 +60,9 @@ object PersistenceQuickStart {
 }
 
 
+//noinspection DuplicatedCode
 class PersistenceQuickStartSpec extends ScalaTestWithActorTestKit(inmenBackendConf) with AnyWordSpecLike {
+
   import PersistenceQuickStart._
 
   "Akka Persistence" should {
