@@ -92,6 +92,7 @@ object PersistenceSample {
       eventHandler = (state, event) => onEvent(state, event))
       .withRetention(RetentionCriteria.snapshotEvery(numberOfEvents = 100, keepNSnapshots = 2).withDeleteEventsOnSnapshot)
       .onPersistFailure(SupervisorStrategy.restartWithBackoff(200.millis, 5.seconds, 0.1))
+
   }
 }
 

@@ -12,4 +12,5 @@ package object Cluster {
        akka.remote.artery.canonical.hostname = 127.0.0.1
     """)
 
+
 }
