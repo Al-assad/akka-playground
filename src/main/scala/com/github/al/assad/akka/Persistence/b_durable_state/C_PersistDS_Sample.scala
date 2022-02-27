@@ -68,6 +68,7 @@ object PersistDSSample {
       persistenceId = PersistenceId.ofUniqueId(userId),
       emptyState = State.default,
       commandHandler = onCommand)
+      .withTag(s"ds-article-$userId")
       .onPersistFailure(SupervisorStrategy.restartWithBackoff(200.millis, 5.seconds, 0.1))
   }
 
