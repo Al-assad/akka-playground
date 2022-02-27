@@ -1,14 +1,12 @@
 package com.github.al.assad.akka.Persistence.a_event_sourcing
 
 import akka.NotUsed
-import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import akka.persistence.jdbc.query.scaladsl.JdbcReadJournal
 import akka.persistence.query.{EventEnvelope, PersistenceQuery}
 import akka.stream.scaladsl.Source
-import com.github.al.assad.akka.Persistence.jdbcBackendJsonSerConf
+import com.github.al.assad.akka.Persistence.{AkkaPersistenceJdbcTestKit, jdbcBackendJsonSerConf}
 import com.github.al.assad.akka.TestImplicit.testProbe
 import com.github.nscala_time.time.Imports.DateTime
-import org.scalatest.wordspec.AnyWordSpecLike
 
 import java.util.Date
 import scala.concurrent.Await
@@ -23,9 +21,9 @@ import scala.language.postfixOps
  * This example is the jdbc-backend version of [[PersistenceSampleSpec]] using PostgresSql as backend.
  * PostgresSql Schema: https://github.com/akka/akka-persistence-jdbc/blob/master/core/src/main/resources/schema/postgres/postgres-create-schema.sql
  */
-//noinspection DuplicatedCode
-class PersistenceJDBCBackendSpec
-  extends ScalaTestWithActorTestKit(jdbcBackendJsonSerConf) with AnyWordSpecLike {
+//noinspection DuplicatedCode,ScalaFileName
+class PersistenceJDBCBackendSpec extends AkkaPersistenceJdbcTestKit(
+  config = jdbcBackendJsonSerConf, clearSchemaBeforeAll = false, clearSchemaAfterAll = false) {
 
   import PersistenceSample._
   import Articles._

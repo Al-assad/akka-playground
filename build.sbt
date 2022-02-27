@@ -39,6 +39,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % slickVersion,
   "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
   "org.postgresql" % "postgresql" % "42.3.3",      // use postgresql as backend
+  "com.h2database" % "h2" % "2.1.210",  // use h2 as backend during test, maybe marked as %Test
 
   // akka http
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,

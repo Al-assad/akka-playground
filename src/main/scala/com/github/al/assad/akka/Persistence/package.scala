@@ -8,6 +8,8 @@ package object Persistence {
 
   val jdbcBackendConf = ConfigFactory.load("persistence-jdbc")
 
+  val h2JdbcBackendConf = ConfigFactory.load("persistence-jdbc-h2")
+
   // use jackson-json as serializer
   val jdbcBackendJsonSerConf = ConfigFactory.parseString(
     """akka {
