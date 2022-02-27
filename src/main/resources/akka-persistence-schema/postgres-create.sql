@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS public.event_journal
     PRIMARY KEY (persistence_id, sequence_number)
 );
 
-CREATE UNIQUE INDEX event_journal_ordering_idx ON public.event_journal (ordering);
+CREATE UNIQUE INDEX IF NOT EXISTS event_journal_ordering_idx ON public.event_journal (ordering);
 
 CREATE TABLE IF NOT EXISTS public.event_tag
 (
@@ -64,5 +64,5 @@ CREATE TABLE IF NOT EXISTS public.durable_state
     state_timestamp       BIGINT       NOT NULL,
     PRIMARY KEY (persistence_id)
 );
-CREATE INDEX CONCURRENTLY state_tag_idx on public.durable_state (tag);
-CREATE INDEX CONCURRENTLY state_global_offset_idx on public.durable_state (global_offset);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS state_tag_idx on public.durable_state (tag);
+CREATE INDEX CONCURRENTLY IF NOT EXISTS state_global_offset_idx on public.durable_state (global_offset);
