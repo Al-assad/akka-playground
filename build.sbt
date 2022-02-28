@@ -50,10 +50,6 @@ libraryDependencies ++= Seq(
 //  "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion, // akka http testkit
-  "com.github.swagger-akka-http" %% "swagger-akka-http" % "2.6.0", // swagger-akka-http
-  "com.github.swagger-akka-http" %% "swagger-scala-module" % "2.5.2",
-  "io.swagger.core.v3" % "swagger-jaxrs2-jakarta" % "2.1.12",
-  "jakarta.ws.rs" % "jakarta.ws.rs-api" % "3.0.0",
 
   // other
   "org.scalatest" %% "scalatest" % "3.2.9",
@@ -62,18 +58,24 @@ libraryDependencies ++= Seq(
   "com.github.nscala-time" %% "nscala-time" % "2.30.0",
 )
 
+// swagger-akka-http
+libraryDependencies ++= Seq(
+  "com.github.swagger-akka-http" %% "swagger-akka-http" % "2.6.0",
+  "com.github.swagger-akka-http" %% "swagger-scala-module" % "2.5.2",
+  "io.swagger.core.v3" % "swagger-jaxrs2-jakarta" % "2.1.12",
+  "jakarta.ws.rs" % "jakarta.ws.rs-api" % "3.0.0",
+)
+
 // tapir for akka-http
 val tapirVersion = "0.20.0-M4"
 libraryDependencies ++= Seq(
   "tapir-core",
   "tapir-json-circe",
   "tapir-akka-http-server",
-  "tapir-swagger-ui-bundle",
   "tapir-sttp-client",
+  "tapir-swagger-ui-bundle",  // when using swagger ui
 ).map("com.softwaremill.sttp.tapir" %% _ % tapirVersion)
 
-
-// akka-http-swagger
 
 // enable multiple jvm plugin
 lazy val root = (project in file("."))
