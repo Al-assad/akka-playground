@@ -2,6 +2,7 @@ package com.github.al.assad.akka.Http.tapir_integration
 
 
 import com.github.al.assad.akka.Http.tapir_integration.TapirSample.{booksListingRequest, booksListingRoute, docs}
+import sttp.tapir.DecodeResult.{Error, Value}
 
 
 object TapirSample {
@@ -19,7 +20,7 @@ object TapirSample {
   import sttp.tapir.generic.auto._
   import sttp.tapir.json.circe._
 
-  val booksListing: PublicEndpoint[(BooksFromYear, Limit, AuthToken), String, List[Book], Any] = endpoint
+  val booksListing = endpoint
     .get
     .in(("books" / path[String]("genre") / path[Int]("year")).mapTo[BooksFromYear])
     .in(query[Limit]("limit").description("Maximum number of books to retrieve"))
@@ -93,6 +94,9 @@ object TapirClientCall {
   def main(args: Array[String]): Unit = {
     val backend = HttpURLConnectionBackend()
     val response = booksListingRequest.send(backend)
-    println(response.body)
+    response.body match {
+      case Value(Right(books)) => println(books)
+      case Error(_, ex) => throw ex
+    }
   }
 }
