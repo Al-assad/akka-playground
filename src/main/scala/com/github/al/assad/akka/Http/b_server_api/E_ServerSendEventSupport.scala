@@ -1,4 +1,4 @@
-package com.github.al.assad.akka.Http.c_other
+package com.github.al.assad.akka.Http.b_server_api
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
