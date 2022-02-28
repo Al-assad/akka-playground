@@ -19,14 +19,13 @@ object TapirSample {
   import sttp.tapir.generic.auto._
   import sttp.tapir.json.circe._
 
-  val booksListing: PublicEndpoint[(BooksFromYear, Limit, AuthToken), String, List[Book], Any] =
-    endpoint
-      .get
-      .in(("books" / path[String]("genre") / path[Int]("year")).mapTo[BooksFromYear])
-      .in(query[Limit]("limit").description("Maximum number of books to retrieve"))
-      .in(header[AuthToken]("X-Auth-Token"))
-      .errorOut(stringBody)
-      .out(jsonBody[List[Book]])
+  val booksListing: PublicEndpoint[(BooksFromYear, Limit, AuthToken), String, List[Book], Any] = endpoint
+    .get
+    .in(("books" / path[String]("genre") / path[Int]("year")).mapTo[BooksFromYear])
+    .in(query[Limit]("limit").description("Maximum number of books to retrieve"))
+    .in(header[AuthToken]("X-Auth-Token"))
+    .errorOut(stringBody)
+    .out(jsonBody[List[Book]])
 
 
   // Generate OpenAPI documentation
