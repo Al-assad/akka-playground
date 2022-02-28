@@ -147,7 +147,7 @@ object ClusterNodeRuleTest1 extends App with ClusterNodeRuleTest {
     case Failure(ex) => throw ex
   }
 
-  // send Dot to system1, this message will not be handle
+  // send Dot to system3, this message will not be handle
   system3 ! DotterGuardian.Dot
 
 }

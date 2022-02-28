@@ -6,6 +6,9 @@ import com.typesafe.config.ConfigFactory
 import org.scalatest.Suite
 import org.scalatest.wordspec.AnyWordSpecLike
 
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
+
 object TestImplicit {
 
   implicit class TestProbeWrapper[M](probe: TestProbe[M]) {
@@ -22,7 +25,30 @@ object TestImplicit {
     probe
   }
 
+  implicit class WrappedFuture[T](f: Future[T]) {
+    def receive(timeout: Duration = Duration.Inf): T = Await.result(f, Duration.Inf)
+  }
+
 }
+
+
+class TimeDotter {
+  private var preDot = System.currentTimeMillis()
+  def dot(): Unit = {
+    val cur = System.currentTimeMillis()
+    println(s"Cost: ${cur - preDot} millis")
+    preDot = cur
+  }
+}
+object TimeDotter {
+  def dot(): TimeDotter = new TimeDotter()
+  def printCost(func: => Unit): Unit = {
+    val dotter = dot()
+    func
+    dotter.dot()
+  }
+}
+
 
 
 trait STAkkaSpec extends AnyWordSpecLike with LogCapturing {

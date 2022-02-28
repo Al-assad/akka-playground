@@ -38,12 +38,16 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-persistence-query" % akkaVersion,
   "com.typesafe.slick" %% "slick" % slickVersion,
   "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
-  "org.postgresql" % "postgresql" % "42.3.3",      // use postgresql as backend
-  "com.h2database" % "h2" % "2.1.210",  // use h2 as backend during test, maybe marked as %Test
+  "org.postgresql" % "postgresql" % "42.3.3", // use postgresql as backend
+  "com.h2database" % "h2" % "2.1.210", // use h2 as backend during test, maybe marked as %Test
+
+  // akka streams
+  "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+  "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion, // akka streams testkit
 
   // akka http
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
-  "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+//  "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion, // akka http testkit
 
