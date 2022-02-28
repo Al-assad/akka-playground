@@ -40,6 +40,7 @@ class AkkaStreamsTestKitSampleSpec extends ScalaTestWithActorTestKit with AnyWor
 
 
   "testkit" should {
+
     "base-1" in {
       val source = Source(1 to 4).filter(_ % 2 == 0).map(_ * 2)
       val probe = source.runWith(TestSink[Int]())
