@@ -33,7 +33,7 @@ class StreamsBufferSpec extends ScalaTestWithActorTestKit with AnyWordSpecLike {
 
 
     "base-2: Buffer Strategy" in {
-      val jobs = Source(1 to 10).throttle(10, 1.seconds)
+      val jobs = Source(1 to 10).throttle(10, 1.seconds).async
 
       // drops the oldest element from the buffer to make space for the new element.
       jobs.buffer(100, OverflowStrategy.dropHead)
