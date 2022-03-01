@@ -96,6 +96,10 @@ libraryDependencies ++= Seq(
 )
 
 
+// akka examples
 lazy val root = (project in file("."))
-  .enablePlugins(MultiJvmPlugin)  // enable multiple jvm plugin
+  .enablePlugins(MultiJvmPlugin) // enable multiple jvm plugin
   .configs(MultiJvm)
+
+// akka packing，deploy examples
+lazy val packingSample = project in file("packing-sample")
