@@ -38,11 +38,9 @@ object DslSampleServer {
     pingRoute,
     // 为一组子路由声明共同的上层 path
     pathPrefix("api") {
-      concat(
-        pathPrefix("user")(userRoute),
-        pathPrefix("file")(fileRoute),
-        pathPrefix("query")(queryRoute)
-      )
+      pathPrefix("user")(userRoute) ~
+      pathPrefix("file")(fileRoute) ~
+      pathPrefix("query")(queryRoute)
     }
   )
 
@@ -70,17 +68,20 @@ object DslSampleServer {
           complete("update user")
         }
       }
-    } ~ path(LongNumber) { id =>
+    } ~
+    path(LongNumber) { id =>
       get {
         users.find(_._1 == id) match {
           case Some(user) => complete(user._2)
           case None => complete(NotFound)
         }
-      } ~ delete {
+      } ~
+      delete {
         users.remove(id)
         complete(s"delete user: $id")
       }
-    } ~ path("all") {
+    } ~
+    path("all") {
       get {
         complete(users.values.toList)
       }
@@ -107,7 +108,8 @@ object DslSampleServer {
               if (name.isDefined) r = r.filter(_.name == name.get)
               complete(r)
           }
-        } ~ path("all") {
+        } ~
+        path("all") {
           // 必填参数 "/api/query/user/all?size=2"
           parameter("size".as[Int]) { size =>
             complete(users.values.take(size))
