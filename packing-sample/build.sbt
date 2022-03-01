@@ -43,3 +43,7 @@ libraryDependencies ++= Seq(
 
 // enable native packing plugin
 enablePlugins(JavaAppPackaging)
+
+// main class setting for bin script
+Compile / mainClass := Some("com.github.al.assad.akkasample.RestApp.scala")
+Compile / discoveredMainClasses := Seq() // discard the automatically found main class

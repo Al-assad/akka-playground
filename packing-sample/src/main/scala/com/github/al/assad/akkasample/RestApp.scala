@@ -15,21 +15,23 @@ import scala.concurrent.duration.DurationInt
 object RestApp extends App with RouteConcatenation {
   val logger = Logger("RestApp")
 
+  // init actor system
   implicit val system = ActorSystem(RootGuardian(), "rest-system")
-  sys.addShutdownHook(system.terminate())
-
   implicit val ec = system.executionContext
   implicit val sc = system.scheduler
-
   implicit val timeout: Timeout = 3.seconds
+  sys.addShutdownHook(system.terminate())
+
+  // init actors
   val counter = Await.result(system ? RootGuardian.GetCounterActor, 2.seconds)
 
+  // init root router
   val rootRoute =
     HelloService.route ~
     new CounterService(counter).route
 
+  // launch http server
   Http().newServerAt("0.0.0.0", 8080).bind(rootRoute)
-
   logger.info("Server online at http://0.0.0.0:8080/")
 
 }
