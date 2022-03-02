@@ -1,6 +1,6 @@
 ## Akka Application Packing, Deployment Sample
 
-
+<br>
 
 ### Using sbt-native-packer plugin
 
@@ -20,7 +20,7 @@ addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.4")
 enablePlugins(JavaAppPackaging)
 ```
 
-  
+  <br>
 
 ###  Build Binary Packing
 
@@ -55,7 +55,7 @@ chmod +x bin/akka-playground-package-sample
 bin/akka-playground-package-sample	
 ```
 
-  
+  <br>
 
 ###  Build Docker Image
 
@@ -108,7 +108,7 @@ The output docker build resource and dockerfile are under `target/docker`.
 
 There is another docker-plugin `sbt-docker` that provides more customization abilities, see: https://github.com/marcuslonnberg/sbt-docker.
 
-​    
+<br>
 
 ### Build K8s Deployment Plan
 
