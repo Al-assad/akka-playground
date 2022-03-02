@@ -10,9 +10,7 @@ import akka.util.Timeout
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.DurationInt
 
-//noinspection DuplicatedCode
-class CounterService(counter: ActorRef[CounterActor.Command],
-                     singletonCounter: ActorRef[CounterActorSingletonProxy.Command])
+class CounterService(counter: ActorRef[_ >: CounterActor.Command])
                     (implicit scheduler: Scheduler, executionContext: ExecutionContext)
   extends Directives with DefaultJsonFormats {
 
@@ -22,55 +20,31 @@ class CounterService(counter: ActorRef[CounterActor.Command],
    * /counter/incre
    * /counter/incre/{:num}
    * /counter/value
-   *
-   * /scounter/incre
-   * /scounter/incre/{:num}
-   * /scounter/value
    */
-  val route = {
-    pathPrefix("counter")(counterRoute) ~
-    pathPrefix("scounter")(singletonCounterRoute)
+  val route = pathPrefix("counter") {
+    increRoute ~
+    getValueRoute
   }
 
 
-  def counterRoute: Route =
-    pathPrefix("incre") {
-      get {
-        pathEndOrSingleSlash {
-          counter ! CounterActor.Increment(1)
-          complete("Incremented Counter by 1")
-        } ~
-        path(IntNumber) { n =>
-          counter ! CounterActor.Increment(n)
-          complete(s"Incremented Counter by $n")
-        }
-      }
-    } ~
-    path("value") {
-      get & complete {
-        (counter ? CounterActor.GetValue).map(e => s"Counter Value $e")
-      }
-    }
-
-
-  def singletonCounterRoute: Route =
-    path("incre") {
-      get {
-        singletonCounter ! CounterActor.Increment(1)
+  def increRoute: Route = pathPrefix("incre") {
+    get {
+      pathEndOrSingleSlash {
+        counter ! CounterActor.Increment(1)
         complete("Incremented Counter by 1")
-      }
-    } ~
-    path("incre" / IntNumber) { n =>
-      get {
-        singletonCounter ! CounterActor.Increment(n)
+      } ~
+      path(IntNumber) { n =>
+        counter ! CounterActor.Increment(n)
         complete(s"Incremented Counter by $n")
       }
-    } ~
-    path("value") {
-      get & complete {
-        (singletonCounter ? CounterActor.GetValue).map(e => s"Counter Value $e")
-      }
     }
+  }
+
+  def getValueRoute: Route = path("value") {
+    get & complete {
+      (counter ? CounterActor.GetValue).map(e => s"Counter Value $e")
+    }
+  }
 
 }
 
@@ -79,7 +53,7 @@ class CounterService(counter: ActorRef[CounterActor.Command],
  * Counter Actor
  */
 object CounterActor {
-  sealed trait Command extends CounterActorSingletonProxy.Command
+  sealed trait Command extends CounterActorProxy.Command
   final case class Increment(n: Int) extends Command
   final case class GetValue(replyTo: ActorRef[Int]) extends Command
 
@@ -101,7 +75,7 @@ object CounterActor {
 /**
  * Cluster Singleton Counter Actor
  */
-object CounterActorSingletonProxy {
+object CounterActorProxy {
   trait Command extends CborSerializable
 
   def apply(): Behavior[Command] = Behaviors.setup { ctx =>
