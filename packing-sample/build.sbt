@@ -55,7 +55,6 @@ Compile / mainClass := Some("com.github.al.assad.akkasample.RestApp")
 Compile / discoveredMainClasses := Seq() // discard the automatically found main class
 Universal / javaOptions ++= Seq("-Xms256m", "-Xmx512m") // [optional] override default jvm options
 
-
 /**
  * docker building settings (sbt-native-packager build-in)
  */

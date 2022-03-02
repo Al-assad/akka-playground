@@ -24,11 +24,12 @@ object RestApp extends App with RouteConcatenation {
 
   // init actors
   val counter = Await.result(system ? RootGuardian.GetCounterActor, 2.seconds)
+  val scounter = Await.result(system ? RootGuardian.GetSingletonCounterActor, 2.seconds)
 
   // init root router
   val rootRoute =
     HelloService.route ~
-    new CounterService(counter).route
+    new CounterService(counter, scounter).route
 
   // launch http server
   Http().newServerAt("0.0.0.0", 8080).bind(rootRoute)
@@ -39,13 +40,19 @@ object RestApp extends App with RouteConcatenation {
 object RootGuardian {
   sealed trait Command
   final case class GetCounterActor(replyTo: ActorRef[ActorRef[CounterActor.Command]]) extends Command
+  final case class GetSingletonCounterActor(replyTo: ActorRef[ActorRef[CounterActorSingletonProxy.Command]]) extends Command
 
   def apply(): Behavior[Command] = Behaviors.setup { ctx =>
     ctx.log.info("Root guardian started.")
     val counter = ctx.spawn(CounterActor(), "counter")
-    Behaviors.receiveMessage {
+    val scounter = ctx.spawn(CounterActorSingletonProxy(), "scounter")
+    ctx.watch(counter)
+    Behaviors.receiveMessage[Command] {
       case GetCounterActor(replyTo) =>
         replyTo ! counter
+        Behaviors.same
+      case GetSingletonCounterActor(replyTo) =>
+        replyTo ! scounter
         Behaviors.same
     }
   }
