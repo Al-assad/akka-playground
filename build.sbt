@@ -92,7 +92,8 @@ libraryDependencies ++= Seq(
 
 // akka management
 libraryDependencies ++= Seq(
-  "com.lightbend.akka.management" %% "akka-management" % akkaManagementVersion // provides the base http management endpoint
+  "com.lightbend.akka.management" %% "akka-management" % akkaManagementVersion,
+  "com.typesafe.akka" %% "akka-stream" % akkaVersion   // override the akka-stream version of akka-management
 )
 
 
