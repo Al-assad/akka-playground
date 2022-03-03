@@ -32,7 +32,9 @@ libraryDependencies ++= Seq(
  * native packing settings (sbt-native-packager)
  */
 // enable native packing plugin
-enablePlugins(JavaAppPackaging)
+enablePlugins(JavaServerAppPackaging)
+// or JavaAppPackaging but JavaServerAppPackaging will create a additional conf directory.
+
 
 // packing settings
 // https://sbt-native-packager.readthedocs.io/en/latest/formats/universal.html#customize
