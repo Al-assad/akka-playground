@@ -89,11 +89,14 @@ libraryDependencies ++= Seq(
   "tapir-swagger-ui-bundle" // when using swagger ui
 ).map("com.softwaremill.sttp.tapir" %% _ % tapirVersion)
 
-
 // akka management
 libraryDependencies ++= Seq(
-  "com.lightbend.akka.management" %% "akka-management" % akkaManagementVersion,
-  "com.typesafe.akka" %% "akka-stream" % akkaVersion   // override the akka-stream version of akka-management
+  "com.lightbend.akka.management" %% "akka-management" % akkaManagementVersion, // akka-management base
+  "com.typesafe.akka" %% "akka-stream" % akkaVersion, // override the akka-stream version of akka-management
+
+  "com.lightbend.akka.management" %% "akka-management-cluster-http" % akkaManagementVersion, // akka-management cluster http
+  "com.typesafe.akka" %% "akka-cluster-sharding" % akkaVersion,   // override the akka-cluster-sharding version of akka-management-cluster-http
+  "com.typesafe.akka" %% "akka-discovery" % akkaVersion   // override the akka-discovery version of akka-management-cluster-http
 )
 
 
