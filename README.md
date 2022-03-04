@@ -2,7 +2,7 @@
 
 Some examples for typed Akka referenced from https://doc.akka.io/docs/akka/current
 
-### Catalog
+### Examples Catalog 
 
 * [Akka Actor](./src/main/scala/com/github/al/assad/akka/Actor)
 * [Akka Cluster](./src/main/scala/com/github/al/assad/akka/Cluster)
@@ -10,7 +10,11 @@ Some examples for typed Akka referenced from https://doc.akka.io/docs/akka/curre
 * [Akka Streams](./src/main/scala/com/github/al/assad/akka/Streams)
 * [Akka Http](./src/main/scala/com/github/al/assad/akka/Http)
 * [Akka Management](./src/main/scala/com/github/al/assad/akka/Management)
+
+### Packing & Deployment Sample 
+
 * [Packaging Akka Application to Binary and Docker image](./packing-sample)
+* [Deploying Akka Application to Kubernets](./k8s-sample)
 
 <br>
 

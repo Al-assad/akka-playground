@@ -1,4 +1,4 @@
-name := "akka-playground-package-sample"
+name := "akka-sample"
 version := "1.0"
 maintainer := "Al-assad <yulin.ying@outlook.com>"
 

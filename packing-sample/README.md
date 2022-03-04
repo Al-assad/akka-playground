@@ -1,6 +1,5 @@
 ## Akka Application Packing, Deployment Sample
 
-<br>
 
 ### Using sbt-native-packer plugin
 

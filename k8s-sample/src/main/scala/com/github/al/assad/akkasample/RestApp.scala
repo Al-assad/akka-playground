@@ -6,8 +6,6 @@ import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
 import akka.event.slf4j.Logger
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.RouteConcatenation
-import akka.management.cluster.bootstrap.ClusterBootstrap
-import akka.management.scaladsl.AkkaManagement
 import akka.util.Timeout
 
 import scala.concurrent.Await
@@ -36,13 +34,12 @@ object RestApp extends App with RouteConcatenation {
   Http().newServerAt("0.0.0.0", 8080).bind(rootRoute)
   logger.info("Http Server Started.")
 
-  // launch akka management
+  // when the "extensions = ["akka.management.cluster.bootstrap.ClusterBootstrap"]" is not set on the application.config,
+  // it needs to launch the akka management server and cluster bootstrap manually as following:
+  /*
   AkkaManagement(system).start()
-  logger.info("Akka Management Started.")
-
-  // launch cluster bootstrap process
   ClusterBootstrap(system).start()
-  logger.info("Cluster Bootstrap Started.")
+   */
 }
 
 object RootGuardian {

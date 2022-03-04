@@ -1,4 +1,4 @@
-name := "akka-playground-package-sample"
+name := "akka-k8s-sample"
 version := "1.0"
 maintainer := "Al-assad <yulin.ying@outlook.com>"
 
@@ -22,10 +22,12 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
   "com.typesafe.akka" %% "akka-cluster-typed" % akkaVersion,
   "com.typesafe.akka" %% "akka-serialization-jackson" % akkaVersion,
+  "com.typesafe.akka" %% "akka-cluster-sharding" % akkaVersion,
 
   "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap" % akkaManagementVersion,
-  "com.typesafe.akka" %% "akka-discovery" % akkaVersion, // override the akka-discovery dependency in akka-management-cluster-bootstrap
   "com.lightbend.akka.management" %% "akka-management-cluster-http" % akkaManagementVersion, // provide membership http endpoint
+  "com.lightbend.akka.discovery" %% "akka-discovery-kubernetes-api" % akkaManagementVersion,  // using k8s dns api
+  "com.typesafe.akka" %% "akka-discovery" % akkaVersion, // override the akka-discovery version
 
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
@@ -40,7 +42,7 @@ Universal / javaOptions ++= Seq("-Xms256m", "-Xmx512m") // [optional] override d
 
 enablePlugins(DockerPlugin, AshScriptPlugin)
 Docker / packageName := "akka-k8s-sample"
-Docker / version := "1.0"
+Docker / version := "1.1"
 Docker / maintainer := "Al-assad <yulin.ying@outlook.com>"
 dockerBaseImage := "openjdk:8-jre-alpine"
 dockerExposedPorts := Seq(8080, 8558, 25520)
