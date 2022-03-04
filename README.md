@@ -10,7 +10,7 @@ Some examples for typed Akka referenced from https://doc.akka.io/docs/akka/curre
 * [Akka Streams](./src/main/scala/com/github/al/assad/akka/Streams)
 * [Akka Http](./src/main/scala/com/github/al/assad/akka/Http)
 * [Akka Management](./src/main/scala/com/github/al/assad/akka/Management)
-* [Akka App Package & Deployment](./packing-sample)
+* [Packaging Akka Application to Binary and Docker image](./packing-sample)
 
 <br>
 

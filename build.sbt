@@ -104,7 +104,10 @@ libraryDependencies ++= Seq(
 lazy val root = (project in file("."))
   .enablePlugins(MultiJvmPlugin) // enable multiple jvm plugin
   .configs(MultiJvm)
-  .aggregate(packingSample)
+  .aggregate(packingSample, k8sSample)
 
 // akka packing，deploy examples
 lazy val packingSample = project in file("packing-sample")
+
+// akka kubernetes dns examples
+lazy val k8sSample = project in file("k8s-sample")
