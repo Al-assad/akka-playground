@@ -14,7 +14,7 @@ Some examples for typed Akka referenced from https://doc.akka.io/docs/akka/curre
 ### Packing & Deployment Sample 
 
 * [Packaging Akka Application to Binary and Docker image](./packing-sample)
-* [Deploying Akka Application to Kubernets](./k8s-sample)
+* [Deploying Akka Application to Kubernetes](./k8s-sample)
 
 <br>
 
