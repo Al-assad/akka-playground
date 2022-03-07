@@ -16,6 +16,7 @@ import org.scalatest.wordspec.AnyWordSpec
  */
 object RejectionsSample {
 
+  // custom rejection behavior handler
   def myRejectionHandler = RejectionHandler.newBuilder()
     .handle {
       case MissingCookieRejection(cookieName) =>
@@ -39,10 +40,11 @@ object RejectionsSample {
     .result()
 }
 
+
+//noinspection DuplicatedCode
 class RejectionsSample extends AnyWordSpec with Matchers with ScalatestRouteTest {
 
   "akka http" should {
-
     "custom rejection behavior" in {
       val route: Route = handleRejections(myRejectionHandler) {
         (path("hello") & get) {
@@ -54,10 +56,22 @@ class RejectionsSample extends AnyWordSpec with Matchers with ScalatestRouteTest
         status shouldBe NotFound
         responseAs[String] shouldBe "Not here!"
       }
-
     }
-  }
 
+    "custom rejection behavior using Route seal" in {
+      implicit def rejectBehavior: RejectionHandler = myRejectionHandler
+
+      val route: Route = Route.seal((path("hello") & get) {
+        complete("Hello!")
+      })
+
+      Get("/nobody") ~> route ~> check {
+        status shouldBe NotFound
+        responseAs[String] shouldBe "Not here!"
+      }
+    }
+
+  }
 }
 
 
