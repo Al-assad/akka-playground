@@ -61,6 +61,8 @@ class ExceptionHandleSample extends AnyWordSpec with Matchers with ScalatestRout
         responseAs[String] shouldBe "Bad numbers, bad result!!!"
       }
 
+
+
     }
   }
 
